@@ -91,10 +91,13 @@ QStringList fakeCmdLine()
     QStringList argList;
 
     argList.append("/Users/mer/Documents/fuge/build-FUGE-LC-Qt_macoOS_v4-Debug/FUGE-LC.app/Contents/MacOS/FUGE-LC");
+    //argList.append("--evaluate");
     argList.append("-d");
     argList.append("/Users/mer/Documents/projet/dataset/arrhythmia_binary_small_sorted.csv");
     argList.append("-s");
     argList.append("/Users/mer/Documents/projet/dataset/test.fs");
+    //argList.append("-f");
+    //argList.append("/Users/mer/Desktop/script_result/fuzzySystems/");
     argList.append("-g");
     argList.append("no");
 
@@ -229,9 +232,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    //if (parseArguments(a.arguments())) {
+    if (parseArguments(a.arguments())) {
 
-    if(parseArguments(fakeCmdLine())){
+    //if(parseArguments(fakeCmdLine())){
 
         FugeMain w;
         // Load the GUI if needed
