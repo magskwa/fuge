@@ -243,9 +243,7 @@ int main(int argc, char *argv[])
             if (!eval && !predict) {
 
                 w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
-                a.exec();
-                //w.close();
-
+                return a.exec();
             }
             else {
                 w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
@@ -256,5 +254,4 @@ int main(int argc, char *argv[])
             return a.exec();
         }
     }
-    return 0;
 }
