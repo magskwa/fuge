@@ -147,7 +147,7 @@ FugeMain::~FugeMain()
 void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzyFile,
                         bool eval, bool predict, bool verbose)
 {
-    doRunFromCmd = true;
+    //doRunFromCmd = true;
 
     // First open the dataset
     QFile file(dataSet);
@@ -1040,6 +1040,7 @@ void FugeMain::onComputeFinished()
         QFile file(fileN);
         SystemParameters& sysParams = SystemParameters::getInstance();
         CoevStats& stats = CoevStats::getInstance();
+        ComputeThread::bestFSystem->saveToFile(fileN, stats.getFitMaxPop1());
 
         // Ensure that a fuzzy systems directory exists. If not we create one.
         QDir logsDir;
