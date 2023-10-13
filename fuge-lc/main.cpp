@@ -86,6 +86,21 @@ void invalidParam()
     showHelp();
 }
 
+QStringList fakeCmdLine()
+{
+    QStringList argList;
+
+    argList.append("/Users/mer/Documents/fuge/build-FUGE-LC-Qt_macoOS_v4-Debug/FUGE-LC.app/Contents/MacOS/FUGE-LC");
+    argList.append("-d");
+    argList.append("/Users/mer/Documents/projet/dataset/arrhythmia_binary_small_sorted.csv");
+    argList.append("-s");
+    argList.append("/Users/mer/Documents/projet/dataset/test.fs");
+    argList.append("-g");
+    argList.append("no");
+
+    return argList;
+}
+
 /**
   * Parse the command line arguments.
   *
@@ -213,7 +228,12 @@ bool parseArguments(QStringList args)
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    if (parseArguments(a.arguments())) {
+
+    //qDebug() << a.arguments().at(0) << a.arguments().at(1) << a.arguments().at(2);
+    //if (parseArguments(a.arguments())) {
+
+    if(parseArguments(fakeCmdLine())){
+
         FugeMain w;
         // Load the GUI if needed
         if (useGUI)

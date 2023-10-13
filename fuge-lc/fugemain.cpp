@@ -147,7 +147,7 @@ FugeMain::~FugeMain()
 void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzyFile,
                         bool eval, bool predict, bool verbose)
 {
-    //doRunFromCmd = true;
+    doRunFromCmd = true;
 
     // First open the dataset
     QFile file(dataSet);
@@ -1084,6 +1084,8 @@ void FugeMain::onScriptFinished()
 {
     if (doRunFromCmd)
         this->close();
+    qDebug() << "on script finished ->closed";
+    QCoreApplication::quit();
 }
 
 /**
