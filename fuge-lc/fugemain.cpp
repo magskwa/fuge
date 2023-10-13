@@ -125,7 +125,7 @@ FugeMain::FugeMain(QWidget *parent)
 
 FugeMain::~FugeMain()
 {
-    computeThread->deleteLater();
+    //computeThread->deleteLater();
     delete listFile;
     delete statsPlot;
     delete aboutDial;
@@ -1083,7 +1083,7 @@ void FugeMain::onComputeFinished()
 void FugeMain::onScriptFinished()
 {
     if (doRunFromCmd)
-        this->close();
+        //this->close();
     qDebug() << "on script finished ->closed";
     QCoreApplication::quit();
 }

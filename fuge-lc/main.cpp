@@ -229,7 +229,6 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    //qDebug() << a.arguments().at(0) << a.arguments().at(1) << a.arguments().at(2);
     //if (parseArguments(a.arguments())) {
 
     if(parseArguments(fakeCmdLine())){
@@ -242,8 +241,11 @@ int main(int argc, char *argv[])
         // Run automatically from command line if needed
         if (runFromCmd) {
             if (!eval && !predict) {
+
                 w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
-                return a.exec();
+                a.exec();
+                //w.close();
+
             }
             else {
                 w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
@@ -254,4 +256,5 @@ int main(int argc, char *argv[])
             return a.exec();
         }
     }
+    return 0;
 }
