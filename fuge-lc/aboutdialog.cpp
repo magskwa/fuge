@@ -24,7 +24,7 @@
   *
   * @brief This class implements the about dialog form
   */
-
+/*
 #include "aboutdialog.h"
 #include "ui_aboutdialog.h"
 
@@ -51,3 +51,4 @@ void AboutDialog::changeEvent(QEvent *e)
         break;
     }
 }
+*/

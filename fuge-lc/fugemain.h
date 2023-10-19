@@ -48,7 +48,7 @@
 
 #include "fuzzysystem.h"
 
-#include "aboutdialog.h"
+//#include "aboutdialog.h"
 #include "helpdialog.h"
 #include "statsplot.h"
 #include "computethread.h"
@@ -95,7 +95,7 @@ protected:
 private:
     void createActions();
     Ui::FugeMain* ui;
-    AboutDialog* aboutDial;
+    //AboutDialog* aboutDial;
     HelpDialog* help;
     StatsPlot* statsPlot;
     EvalPlot* evalPlot;

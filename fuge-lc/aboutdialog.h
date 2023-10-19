@@ -25,6 +25,7 @@
   * @brief This class implements the about dialog form
   */
 
+/*
 #ifndef ABOUTDIALOG_H
 #define ABOUTDIALOG_H
 
@@ -49,3 +50,4 @@ private:
 };
 
 #endif // ABOUTDIALOG_H
+*/

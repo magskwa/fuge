@@ -59,7 +59,7 @@ FugeMain::FugeMain(QWidget *parent)
     listFile = new QList<QStringList>;
 
     help = new HelpDialog();
-    aboutDial = new AboutDialog();
+    //aboutDial = new AboutDialog();
     statsPlot = new StatsPlot();
     CoevStats& fitStats = CoevStats::getInstance();
     sMan = new ScriptManager();
@@ -128,7 +128,7 @@ FugeMain::~FugeMain()
     //computeThread->deleteLater();
     delete listFile;
     delete statsPlot;
-    delete aboutDial;
+    //delete aboutDial;
     delete ui;
     sMan->deleteLater();
 }
@@ -983,7 +983,7 @@ void FugeMain::onActRunScript()
   */
 void FugeMain::onActAbout()
 {
-    aboutDial->exec();
+   // aboutDial->exec();
 }
 
 /**

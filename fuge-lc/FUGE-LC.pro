@@ -49,7 +49,7 @@ HEADERS += fugemain.h \
     helpdialog.h
 
 FORMS += fugemain.ui \
-    aboutdialog.ui \
+    #aboutdialog.ui \
     errordialog.ui \
     statsplot.ui \
     editparamsdialog.ui \
