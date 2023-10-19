@@ -25,6 +25,7 @@
   * @brief This class implements the FUGE-LC main window.
   */
 #include "fugemain.h"
+#include "QtGui/qaction.h"
 
 
 QFile *fitLogFile;
@@ -33,15 +34,17 @@ bool doRunFromCmd = false;
 QList<QStringList>* FugeMain::listFile = 0;
 
 FugeMain::FugeMain(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::FugeMain),
+    : QMainWindow(parent), /*ui(new Ui::FugeMain),*/
       fSystemRules(0), fSystemVars(0)
 {
+    /*
     ui->setupUi(this);
     ui->btRunScript->setEnabled(false);
     ui->btRun->setEnabled(false);
     ui->btValidate->setEnabled(false);
     ui->btEvaluate->setEnabled(false);
     ui->btPredict->setEnabled(false);
+    */
 
     // Initialise the random generator
     QTime time;
@@ -69,11 +72,12 @@ FugeMain::FugeMain(QWidget *parent)
     connect(sMan, SIGNAL(scriptFinished()), this, SLOT(onScriptFinished()));
     computeThread = new ComputeThread();
     connect(computeThread, SIGNAL(computeFinished()), this, SLOT(onComputeFinished()));
-    connect(ui->btStop, SIGNAL(clicked()), computeThread, SLOT(onStopEvo()));
+    //connect(ui->btStop, SIGNAL(clicked()), computeThread, SLOT(onStopEvo()));
     //connect(&fitStats, SIGNAL(transmit(QString)), statsPlot, SLOT(receiveData(QString)), Qt::BlockingQueuedConnection);
     //connect(this, SIGNAL(clearStats()), statsPlot, SLOT(onClearStats()));
     //connect(this, SIGNAL(closeStats()), statsPlot, SLOT(onCloseStats()));
     //connect(ui->btGraph, SIGNAL(clicked()), statsPlot, SLOT(onShowGraph()));
+    /*
     connect(ui->btRunScript, SIGNAL(clicked()), this, SLOT(onActRunScript()));
     connect(ui->btRun, SIGNAL(clicked()), this, SLOT(onActRun()));
     connect(ui->btValidate, SIGNAL(clicked()), this, SLOT(onActValidFuzzy()));
@@ -89,16 +93,19 @@ FugeMain::FugeMain(QWidget *parent)
     connect(ui->btEditParams, SIGNAL(clicked()), this, SLOT(onActEditParams()));
     connect(ui->btOpenScript, SIGNAL(clicked()), this, SLOT(onActOpenScript()));
     connect(ui->btCloseScript, SIGNAL(clicked()), this, SLOT(onActCloseScript()));
-
+    */
     this->createActions();
 
     // TODO: There's a ui, form file for this, it shouldn't be implemented in code
+    /*
     fileMenu = menuBar()->addMenu(tr("&FUGE-LC"));
     fuzzyMenu = menuBar()->addMenu(tr("F&uzzy system"));
     dataMenu = menuBar()->addMenu(tr("&Dataset"));
     paramsMenu = menuBar()->addMenu(tr("&Parameters"));
     scriptMenu = menuBar()->addMenu(tr("&Script"));
+    */
     //helpMenu = menuBar()->addMenu(tr("&Help"));
+    /*
     fileMenu->addAction(actRun);
     fileMenu->addAction(actStop);
     dataMenu->addAction(actOpenData);
@@ -118,11 +125,11 @@ FugeMain::FugeMain(QWidget *parent)
     fileMenu->addAction(actQuit);
     //helpMenu->addAction(actHelp);
     //helpMenu->addAction(actAbout);
-
+    */
     currentOpennedSystem = "";
 
     // Fuzzy system manual creation not implemented yet...
-    ui->btNewFuzzy->setEnabled(false);
+    //ui->btNewFuzzy->setEnabled(false);
 }
 
 FugeMain::~FugeMain()
@@ -131,7 +138,7 @@ FugeMain::~FugeMain()
     delete listFile;
     //delete statsPlot;
     //delete aboutDial;
-    delete ui;
+    //delete ui;
     sMan->deleteLater();
 }
 

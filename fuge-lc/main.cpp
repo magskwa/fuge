@@ -238,8 +238,8 @@ int main(int argc, char *argv[])
 
         FugeMain w;
         // Load the GUI if needed
-        if (useGUI)
-            w.show();
+        //if (useGUI)
+            //w.show();
 
         // Run automatically from command line if needed
         if (runFromCmd) {

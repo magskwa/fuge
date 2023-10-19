@@ -54,7 +54,7 @@
 #include "computethread.h"
 //#include "evalplot.h"
 #include "scriptmanager.h"
-#include "ui_fugemain.h"
+//#include "ui_fugemain.h"
 //#include "errordialog.h"
 //#include "infodialog.h"
 #include "systemparameters.h"
@@ -69,10 +69,11 @@
 
 class ComputeThread;
 
-namespace Ui
+/*namespace Ui
 {
     class FugeMain;
-}
+}*/
+
 
 extern QFile *fitLogFile;
 
@@ -94,7 +95,7 @@ protected:
 
 private:
     void createActions();
-    Ui::FugeMain* ui;
+    //Ui::FugeMain* ui;
     //AboutDialog* aboutDial;
     //HelpDialog* help;
     //StatsPlot* statsPlot;

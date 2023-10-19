@@ -16,7 +16,7 @@ QT += core gui widgets xml
 include(libGGA/libGGA.pri)
 include(fuzzy/Fuzzy.pri)
 include(coev/Coev.pri)
-include(Dependencies/qwt/qwt.pri)
+#include(Dependencies/qwt/qwt.pri)
 include(Dependencies/duktape/duktape.pri)
 
 SOURCES += main.cpp \
@@ -48,7 +48,7 @@ HEADERS += fugemain.h \
     scriptmanager.h \
     #helpdialog.h
 
-FORMS += fugemain.ui \
+#FORMS += fugemain.ui \
     #aboutdialog.ui \
     #errordialog.ui \
     #statsplot.ui \
