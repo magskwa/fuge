@@ -60,7 +60,7 @@ FugeMain::FugeMain(QWidget *parent)
 
     //help = new HelpDialog();
     //aboutDial = new AboutDialog();
-    statsPlot = new StatsPlot();
+    //statsPlot = new StatsPlot();
     CoevStats& fitStats = CoevStats::getInstance();
     sMan = new ScriptManager();
     // TODO: Rename the signal and slots to have the same name and get ride of those connect declarations.
@@ -70,10 +70,10 @@ FugeMain::FugeMain(QWidget *parent)
     computeThread = new ComputeThread();
     connect(computeThread, SIGNAL(computeFinished()), this, SLOT(onComputeFinished()));
     connect(ui->btStop, SIGNAL(clicked()), computeThread, SLOT(onStopEvo()));
-    connect(&fitStats, SIGNAL(transmit(QString)), statsPlot, SLOT(receiveData(QString)), Qt::BlockingQueuedConnection);
-    connect(this, SIGNAL(clearStats()), statsPlot, SLOT(onClearStats()));
+    //connect(&fitStats, SIGNAL(transmit(QString)), statsPlot, SLOT(receiveData(QString)), Qt::BlockingQueuedConnection);
+    //connect(this, SIGNAL(clearStats()), statsPlot, SLOT(onClearStats()));
     //connect(this, SIGNAL(closeStats()), statsPlot, SLOT(onCloseStats()));
-    connect(ui->btGraph, SIGNAL(clicked()), statsPlot, SLOT(onShowGraph()));
+    //connect(ui->btGraph, SIGNAL(clicked()), statsPlot, SLOT(onShowGraph()));
     connect(ui->btRunScript, SIGNAL(clicked()), this, SLOT(onActRunScript()));
     connect(ui->btRun, SIGNAL(clicked()), this, SLOT(onActRun()));
     connect(ui->btValidate, SIGNAL(clicked()), this, SLOT(onActValidFuzzy()));
@@ -129,7 +129,7 @@ FugeMain::~FugeMain()
 {
     //computeThread->deleteLater();
     delete listFile;
-    delete statsPlot;
+    //delete statsPlot;
     //delete aboutDial;
     delete ui;
     sMan->deleteLater();
@@ -1156,6 +1156,6 @@ void FugeMain::closeEvent(QCloseEvent*)
     file.remove();
     lFile.remove();
 
-    statsPlot->close();
+    //statsPlot->close();
     this->close();
 }

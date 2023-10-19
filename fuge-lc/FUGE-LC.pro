@@ -24,7 +24,7 @@ SOURCES += main.cpp \
     #aboutdialog.cpp \
     #errordialog.cpp \
     fuzzymembershipssingle.cpp \
-    statsplot.cpp \
+    #statsplot.cpp \
     computethread.cpp \
     systemparameters.cpp \
     #editparamsdialog.cpp \
@@ -38,7 +38,7 @@ HEADERS += fugemain.h \
     #aboutdialog.h \
     #errordialog.h \
     fuzzymembershipssingle.h \
-    statsplot.h \
+    #statsplot.h \
     computethread.h \
     systemparameters.h \
     #editparamsdialog.h \
@@ -51,7 +51,7 @@ HEADERS += fugemain.h \
 FORMS += fugemain.ui \
     #aboutdialog.ui \
     #errordialog.ui \
-    statsplot.ui \
+    #statsplot.ui \
     #editparamsdialog.ui \
     #evalplot.ui \
     #infodialog.ui \

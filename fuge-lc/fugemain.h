@@ -50,7 +50,7 @@
 
 //#include "aboutdialog.h"
 //#include "helpdialog.h"
-#include "statsplot.h"
+//#include "statsplot.h"
 #include "computethread.h"
 //#include "evalplot.h"
 #include "scriptmanager.h"
@@ -97,7 +97,7 @@ private:
     Ui::FugeMain* ui;
     //AboutDialog* aboutDial;
     //HelpDialog* help;
-    StatsPlot* statsPlot;
+    //StatsPlot* statsPlot;
     //EvalPlot* evalPlot;
     ComputeThread* computeThread;
 

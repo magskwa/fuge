@@ -25,7 +25,7 @@
   * @brief This class is responsible to manage the script execution of the application.
   * The parameters are read from the scriptfile and the doRun() function is evaluated.
   */
-
+/*
 #ifndef STATSPLOT_H
 #define STATSPLOT_H
 
@@ -96,3 +96,4 @@ private:
 };
 
 #endif // STATSPLOT_H
+*/
