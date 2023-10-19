@@ -101,6 +101,8 @@ QStringList fakeCmdLine()
     argList.append("-g");
     argList.append("no");
 
+    runFromCmd = true;
+
     return argList;
 }
 
@@ -232,9 +234,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    if (parseArguments(a.arguments())) {
+    //if (parseArguments(a.arguments())) {
 
-    //if(parseArguments(fakeCmdLine())){
+    if(parseArguments(fakeCmdLine())){
 
         FugeMain w;
         // Load the GUI if needed
