@@ -52,10 +52,10 @@
 #include "helpdialog.h"
 #include "statsplot.h"
 #include "computethread.h"
-#include "evalplot.h"
+//#include "evalplot.h"
 #include "scriptmanager.h"
 #include "ui_fugemain.h"
-#include "errordialog.h"
+//#include "errordialog.h"
 #include "infodialog.h"
 #include "systemparameters.h"
 //#include "editparamsdialog.h"
@@ -98,7 +98,7 @@ private:
     //AboutDialog* aboutDial;
     HelpDialog* help;
     StatsPlot* statsPlot;
-    EvalPlot* evalPlot;
+    //EvalPlot* evalPlot;
     ComputeThread* computeThread;
 
     FuzzySystem* fSystemVars;

@@ -24,7 +24,7 @@
   *
   * @brief This class implements the generic error dialog.
   */
-
+/*
 #include "errordialog.h"
 #include "ui_errordialog.h"
 
@@ -51,23 +51,18 @@ void ErrorDialog::changeEvent(QEvent *e)
         break;
     }
 }
+*/
 
 /**
   * Set the error message to be displayed.
   *
   * @param errorText Error text
   */
-void ErrorDialog::setError(QString errorText)
-{
-    m_ui->lblError->setText(errorText);
-}
+
 
 /**
   * Set the information message to be displayed.
   *
   * @param errorText Information text
   */
-void ErrorDialog::setInfo(QString infoText)
-{
-    m_ui->lblInfo->setText(infoText);
-}
+

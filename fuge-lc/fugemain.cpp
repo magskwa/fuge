@@ -408,6 +408,10 @@ void FugeMain::onActRun()
         ui->btOpenFuzzy->setEnabled(false);
         */
     }
+
+    // TODOM : check if a control of error is needed here
+
+    /*
     else if (!dataLoaded) {
         ErrorDialog errDiag;
         errDiag.setError("Error : no data Loaded !");
@@ -420,6 +424,7 @@ void FugeMain::onActRun()
         errDiag.setInfo("Please load from script or edit from menu...");
         errDiag.exec();
     }
+    */
     //ui->btSaveFuzzy->setEnabled(true);
     this->actSaveFuzzy->setEnabled(true);
     //ui->btPredict->setEnabled(false);
@@ -713,8 +718,8 @@ void FugeMain::onActPredictFuzzy(bool fromCmd)
 
         int nbOutVars = sysParams.getNbOutVars();
 
-        evalPlot = new EvalPlot();
-        evalPlot->loadData(listFile);
+        //evalPlot = new EvalPlot();
+        //evalPlot->loadData(listFile);
         QVector<float> computedResults;
         QVector<float> reverseComputedResults;
         QVector<float> predictedResults;
@@ -737,14 +742,14 @@ void FugeMain::onActPredictFuzzy(bool fromCmd)
             }
         }
 
-        evalPlot->setPredictive(true);
-        evalPlot->setNbOutVars(nbOutVars);
+        //evalPlot->setPredictive(true);
+        //evalPlot->setNbOutVars(nbOutVars);
         predictedResults.resize(reverseComputedResults.size());
         // Compute the predicted results by applying the threshold
         for (int i = 0; i < reverseComputedResults.size(); i++) {
             predictedResults.replace(i, ComputeThread::bestFSystem->threshold(i / (reverseComputedResults.size()/nbOutVars), reverseComputedResults.at(i)));
         }
-
+        /*
         evalPlot->setFitness(ComputeThread::bestFSystem->getFitness());
         evalPlot->setSensitivity(ComputeThread::bestFSystem->getSensitivity());
         evalPlot->setSpecificity(ComputeThread::bestFSystem->getSpecificity());
@@ -768,6 +773,7 @@ void FugeMain::onActPredictFuzzy(bool fromCmd)
             evalPlot->saveEval(fileName);
         }
         delete evalPlot;
+        */
     }
 }
 
@@ -819,10 +825,13 @@ void FugeMain::onActEvalFuzzy(bool doValid, bool fromCmd)
          }       
     }
     else {
+         /*
         ErrorDialog errDiag;
         errDiag.setError("Error : dataset " + sysParams.getDatasetName() + " not found !! ");
         errDiag.setInfo("Please load the corresponding dataset manually !");
         errDiag.exec();
+        */
+
         return;
     }
     ComputeThread::bestFSystem->loadData(listFile);
@@ -835,8 +844,8 @@ void FugeMain::onActEvalFuzzy(bool doValid, bool fromCmd)
     expectedResults.resize((listFile->size()-1)*nbOutVars);
 
     if (/*dataLoaded*/1) {
-        evalPlot = new EvalPlot();
-        evalPlot->loadData(listFile);
+        //evalPlot = new EvalPlot();
+        //evalPlot->loadData(listFile);
         for (int k = 0; k < nbOutVars; k++) {
             for (int i = 1, j = 0; i < listFile->size(); i++, j++) {
                 expectedResults.replace((listFile->size()-1)*k + j, (listFile->at(i).at(nbInVars+k+1)).toFloat());
@@ -871,6 +880,7 @@ void FugeMain::onActEvalFuzzy(bool doValid, bool fromCmd)
 
         // Update the GUI
         if (!fromCmd) {
+            /*
             evalPlot->setFitness(ComputeThread::bestFSystem->getFitness());
             evalPlot->setSensitivity(ComputeThread::bestFSystem->getSensitivity());
             evalPlot->setSpecificity(ComputeThread::bestFSystem->getSpecificity());
@@ -895,6 +905,7 @@ void FugeMain::onActEvalFuzzy(bool doValid, bool fromCmd)
             evalPlot->setPredictive(false);
             evalPlot->exec();
             delete evalPlot;
+            */
         }
     }
 }
@@ -971,10 +982,12 @@ void FugeMain::onActRunScript()
         //ui->btSaveFuzzy->setEnabled(true);
     }
     else {
+        /*
         ErrorDialog errDiag;
         errDiag.setError("Error : no data loaded");
         errDiag.setInfo("Please choose a dataset !");
         errDiag.exec();
+        */
     }
 }
 

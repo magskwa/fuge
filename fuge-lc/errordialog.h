@@ -24,7 +24,7 @@
   *
   * @brief This class implements the generic error dialog.
   */
-
+/*
 #ifndef ERRORDIALOG_H
 #define ERRORDIALOG_H
 
@@ -53,3 +53,4 @@ private:
 };
 
 #endif // ERRORDIALOG_H
+*/

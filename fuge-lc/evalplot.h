@@ -26,6 +26,7 @@
   * differs a bit according to the mode selected.
   */
 
+/*
 #ifndef EVALPLOT_H
 #define EVALPLOT_H
 
@@ -127,3 +128,4 @@ private slots:
 };
 
 #endif // EVALPLOT_H
+*/

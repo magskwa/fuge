@@ -21,28 +21,28 @@ include(Dependencies/duktape/duktape.pri)
 
 SOURCES += main.cpp \
     fugemain.cpp \
-    aboutdialog.cpp \
-    errordialog.cpp \
+    #aboutdialog.cpp \
+    #errordialog.cpp \
     fuzzymembershipssingle.cpp \
     statsplot.cpp \
     computethread.cpp \
     systemparameters.cpp \
-    editparamsdialog.cpp \
-    evalplot.cpp \
+    #editparamsdialog.cpp \
+    #evalplot.cpp \
     infodialog.cpp \
     fuzzyeditor.cpp \
     scriptmanager.cpp \
     helpdialog.cpp
 
 HEADERS += fugemain.h \
-    aboutdialog.h \
-    errordialog.h \
+    #aboutdialog.h \
+    #errordialog.h \
     fuzzymembershipssingle.h \
     statsplot.h \
     computethread.h \
     systemparameters.h \
-    editparamsdialog.h \
-    evalplot.h \
+    #editparamsdialog.h \
+    #evalplot.h \
     infodialog.h \
     fuzzyeditor.h \
     scriptmanager.h \
@@ -50,12 +50,12 @@ HEADERS += fugemain.h \
 
 FORMS += fugemain.ui \
     #aboutdialog.ui \
-    errordialog.ui \
+    #errordialog.ui \
     statsplot.ui \
     #editparamsdialog.ui \
-    evalplot.ui \
+    #evalplot.ui \
     infodialog.ui \
-    evalplotframe.ui \
+    #evalplotframe.ui \
     fuzzyeditor.ui \
     helpdialog.ui
 
