@@ -162,7 +162,7 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
         list = line.split(';');
         listFile->append(list);
      }
-    ui->label_dataInfo->setText("<font color = green> Dataset loaded : " + dataSet + "<font>");
+    //ui->label_dataInfo->setText("<font color = green> Dataset loaded : " + dataSet + "<font>");
     dataLoaded = true;
     // Set the dataset name in the parameters
     SystemParameters& sysParams = SystemParameters::getInstance();
@@ -177,19 +177,21 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
         connect(this, SIGNAL(openFuzzySystem(QString)), fSystemRules, SLOT(loadFromFile(QString)));
         currentOpennedSystem = fuzzyFile;
         emit openFuzzySystem(fuzzyFile);
-        ui->label_fuzzyInfo->setText("<font color = green> Fuzzy system loaded : "  + fuzzyFile + "<font>");
+        //ui->label_fuzzyInfo->setText("<font color = green> Fuzzy system loaded : "  + fuzzyFile + "<font>");
         this->actSaveFuzzy->setEnabled(true);
         this->actCloseFuzzy->setEnabled(true);
         this->actEvalFuzzy->setEnabled(true);
         this->actValidFuzzy->setEnabled(true);
         this->actPredictFuzzy->setEnabled(true);
         this->actEditFuzzy->setEnabled(true);
+        /*
         ui->btValidate->setEnabled(true);
         ui->btEvaluate->setEnabled(true);
         ui->btPredict->setEnabled(true);
         ui->btSaveFuzzy->setEnabled(true);
         ui->btEditFuzzy->setEnabled(true);
         ui->btCloseFuzzy->setEnabled(true);
+        */
         sysParams.setDatasetName(dataSet);
         if (eval) {
             this->onActEvalFuzzy(true, true);
@@ -215,8 +217,8 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
     else {
         // Then open the script
         scriptLoaded = true;
-        ui->label_scriptInfo->setText("<font color = green> Script loaded : " + scriptFile +"<font>");
-        ui->label_paramInfo->setText("<font color = green> Parameters loaded from script <font>");
+        //ui->label_scriptInfo->setText("<font color = green> Script loaded : " + scriptFile +"<font>");
+        //ui->label_paramInfo->setText("<font color = green> Parameters loaded from script <font>");
         sMan->setScriptFileName(scriptFile);
         sMan->readScript();
         sMan->start();
@@ -261,6 +263,7 @@ void FugeMain::createActions()
     actValidFuzzy->setEnabled(false);
     actEvalFuzzy->setEnabled(false);
     actPredictFuzzy->setEnabled(false);
+    /*
     ui->btStop->setEnabled(false);
     ui->btSaveFuzzy->setEnabled(false);
     ui->btEditFuzzy->setEnabled(false);
@@ -268,6 +271,7 @@ void FugeMain::createActions()
     ui->btCloseData->setEnabled(false);
     ui->btCloseScript->setEnabled(false);
     ui->btStop->setEnabled(false);
+    */
 
     // TODO: triggered should be auto-linked to slots onXXXTriggered.
     // It's possible to do it by renaming slots (See Qt Documentation)
@@ -367,8 +371,8 @@ void FugeMain::onActRun()
     if(fSystemVars != 0)
         delete fSystemVars;
 
-    ui->btStop->setEnabled(true);
-    ui->btRun->setEnabled(false);
+    //ui->btStop->setEnabled(true);
+    //ui->btRun->setEnabled(false);
     if ((dataLoaded && scriptLoaded) || (dataLoaded && paramsLoaded)) {
 
         fSystemVars = getNewFuzzySystem(listFile);
@@ -381,7 +385,7 @@ void FugeMain::onActRun()
         if (computeThread == NULL) {
             computeThread = new ComputeThread();
             connect (computeThread, SIGNAL(computeFinished()), this, SLOT(onComputeFinished()));
-            connect(ui->btStop, SIGNAL(clicked()), computeThread, SLOT(onStopEvo()));
+            //connect(ui->btStop, SIGNAL(clicked()), computeThread, SLOT(onStopEvo()));
         }
 
         connect(this, SIGNAL(saveFuzzySystem(QString)), computeThread, SLOT(onSaveSystem(QString)));
@@ -392,15 +396,17 @@ void FugeMain::onActRun()
 
         // TODO: this logic should be implemented in a method.
         actStop->setEnabled(true);
-        ui->btStop->setEnabled(true);
+        //ui->btStop->setEnabled(true);
         actCloseData->setEnabled(false);
         actOpenData->setEnabled(false);
         actOpenFuzzy->setEnabled(false);
         actNewFuzzy->setEnabled(false);
+        /*
         ui->btNewFuzzy->setEnabled(false);
         ui->btOpenFuzzy->setEnabled(false);
         ui->btCloseData->setEnabled(false);
         ui->btOpenFuzzy->setEnabled(false);
+        */
     }
     else if (!dataLoaded) {
         ErrorDialog errDiag;
@@ -414,15 +420,15 @@ void FugeMain::onActRun()
         errDiag.setInfo("Please load from script or edit from menu...");
         errDiag.exec();
     }
-    ui->btSaveFuzzy->setEnabled(true);
+    //ui->btSaveFuzzy->setEnabled(true);
     this->actSaveFuzzy->setEnabled(true);
-    ui->btPredict->setEnabled(false);
+    //ui->btPredict->setEnabled(false);
     this->actPredictFuzzy->setEnabled(false);
-    ui->btValidate->setEnabled(false);
+    //ui->btValidate->setEnabled(false);
     this->actValidFuzzy->setEnabled(false);
-    ui->btEvaluate->setEnabled(false);
+    //ui->btEvaluate->setEnabled(false);
     this->actEvalFuzzy->setEnabled(false);
-    ui->btEditFuzzy->setEnabled(false);
+    //ui->btEditFuzzy->setEnabled(false);
     this->actEditFuzzy->setEnabled(false);
     }catch(...)
     {
@@ -468,18 +474,18 @@ void FugeMain::onActOpenData()
         dataLoaded = true;
         file.close();
         if (paramsLoaded) {
-            ui->btRun->setEnabled(true);
+            //ui->btRun->setEnabled(true);
             actRun->setEnabled(true);
         }
         if (scriptLoaded) {
-            ui->btRunScript->setEnabled(true);
+            //ui->btRunScript->setEnabled(true);
             actRunScript->setEnabled(true);
         }
-        ui->label_dataInfo->setText("<font color = green> Dataset loaded : " + fileName + "<font>");
-        ui->label_dataVars->setText("- " + QString::number(listFile->at(0).size()-1) + " variables");
-        ui->label_dataSamples->setText("- " + QString::number(listFile->size()-1) + " samples");
+        //ui->label_dataInfo->setText("<font color = green> Dataset loaded : " + fileName + "<font>");
+        //ui->label_dataVars->setText("- " + QString::number(listFile->at(0).size()-1) + " variables");
+        //ui->label_dataSamples->setText("- " + QString::number(listFile->size()-1) + " samples");
         actCloseData->setEnabled(true);
-        ui->btCloseData->setEnabled(true);
+        //ui->btCloseData->setEnabled(true);
     }
 }
 
@@ -488,12 +494,12 @@ void FugeMain::onActOpenData()
   */
 void FugeMain::onActCloseData()
 {
-    ui->label_dataInfo->setText("<font color = red> No dataset loaded <font>");
-    ui->label_dataVars->setText("");
-    ui->label_dataSamples->setText("");
+    //ui->label_dataInfo->setText("<font color = red> No dataset loaded <font>");
+    //ui->label_dataVars->setText("");
+    //ui->label_dataSamples->setText("");
     listFile->clear();
     dataLoaded = false;
-    ui->btRun->setEnabled(false);
+    //ui->btRun->setEnabled(false);
     actRun->setEnabled(false);
 }
 
@@ -568,19 +574,21 @@ void FugeMain::onActOpenFuzzy()
         emit openFuzzySystem(fileName);
 
         // TODO: this logic should be in a function.
-        ui->label_fuzzyInfo->setText("<font color = green> Fuzzy system loaded : "  + fileName + "<font>");
+        //ui->label_fuzzyInfo->setText("<font color = green> Fuzzy system loaded : "  + fileName + "<font>");
         this->actSaveFuzzy->setEnabled(true);
         this->actCloseFuzzy->setEnabled(true);
         this->actEvalFuzzy->setEnabled(true);
         this->actValidFuzzy->setEnabled(true);
         this->actPredictFuzzy->setEnabled(true);
         this->actEditFuzzy->setEnabled(true);
+        /*
         ui->btValidate->setEnabled(true);
         ui->btEvaluate->setEnabled(true);
         ui->btPredict->setEnabled(true);
         ui->btSaveFuzzy->setEnabled(true);
         ui->btEditFuzzy->setEnabled(true);
         ui->btCloseFuzzy->setEnabled(true);
+        */
     }
 }
 
@@ -604,19 +612,21 @@ void FugeMain::onActCloseFuzzy()
         this->onActCloseData();
 
     // TODO: This logic should be in a function.
-    ui->label_fuzzyInfo->setText("<font color = ""#FF6F00""> No fuzzy system loaded<font>");
+    //ui->label_fuzzyInfo->setText("<font color = ""#FF6F00""> No fuzzy system loaded<font>");
     this->actSaveFuzzy->setEnabled(false);
     this->actCloseFuzzy->setEnabled(false);
     this->actEditFuzzy->setEnabled(false);
     this->actEvalFuzzy->setEnabled(false);
     this->actValidFuzzy->setEnabled(false);
     this->actPredictFuzzy->setEnabled(false);
+    /*
     ui->btValidate->setEnabled(false);
     ui->btEvaluate->setEnabled(false);
     ui->btPredict->setEnabled(false);
     ui->btSaveFuzzy->setEnabled(false);
     ui->btEditFuzzy->setEnabled(false);
     ui->btCloseFuzzy->setEnabled(false);
+    */
 }
 
 /**
@@ -900,11 +910,11 @@ void FugeMain::onActEditParams()
 
     if (paramsLoaded) {
         if (dataLoaded) {
-            ui->btRun->setEnabled(true);
+            //ui->btRun->setEnabled(true);
             actRun->setEnabled(true);
             onActCloseScript();
         }
-        ui->label_paramInfo->setText("<font color = green> Parameters loaded from menu<font>");
+        //ui->label_paramInfo->setText("<font color = green> Parameters loaded from menu<font>");
     }
 }
 
@@ -918,17 +928,17 @@ void FugeMain::onActOpenScript()
         scriptLoaded = true;
         paramsLoaded = true;
         actCloseScript->setEnabled(true);
-        ui->btCloseScript->setEnabled(true);
+        //ui->btCloseScript->setEnabled(true);
         this->actCloseScript->setEnabled(true);
-        ui->label_scriptInfo->setText("<font color = green> Script loaded : " + fileName +"<font>");
-        ui->label_paramInfo->setText("<font color = green> Parameters loaded from script <font>");
+        //ui->label_scriptInfo->setText("<font color = green> Script loaded : " + fileName +"<font>");
+        //ui->label_paramInfo->setText("<font color = green> Parameters loaded from script <font>");
 
         sMan->setScriptFileName(fileName);
         sMan->readScript();
         if (dataLoaded && sMan->isScriptReady()) {
-            ui->btRunScript->setEnabled(true);
+            //ui->btRunScript->setEnabled(true);
             actRunScript->setEnabled(true);
-            ui->btRun->setEnabled(false);
+            //ui->btRun->setEnabled(false);
             actRun->setEnabled(false);
         }
     }
@@ -940,10 +950,10 @@ void FugeMain::onActOpenScript()
 void FugeMain::onActCloseScript()
 {
     sMan->setScriptFileName(NULL);
-    ui->label_scriptInfo->setText("<font color = ""#FF6F00""> No script loaded <font>");
+    //ui->label_scriptInfo->setText("<font color = ""#FF6F00""> No script loaded <font>");
     if (!paramsLoaded)
-        ui->label_paramInfo->setText("<font color = red> No parameters selected <font>");
-    ui->btRunScript->setEnabled(false);
+        //ui->label_paramInfo->setText("<font color = red> No parameters selected <font>");
+    //ui->btRunScript->setEnabled(false);
     actRunScript->setEnabled(false);
     scriptLoaded = false;
 }
@@ -956,9 +966,9 @@ void FugeMain::onActRunScript()
     if (dataLoaded) {
         sMan->start();
         actStop->setEnabled(true);
-        ui->btStop->setEnabled(true);
+        //ui->btStop->setEnabled(true);
         actSaveFuzzy->setEnabled(true);
-        ui->btSaveFuzzy->setEnabled(true);
+        //ui->btSaveFuzzy->setEnabled(true);
     }
     else {
         ErrorDialog errDiag;
@@ -993,12 +1003,14 @@ void FugeMain::onComputeFinished()
     actNewFuzzy->setEnabled(true);
     actOpenData->setEnabled(true);
     actStop->setEnabled(false);
+    /*
     ui->btStop->setEnabled(false);
     ui->btRun->setEnabled(true);
     ui->btCloseData->setEnabled(true);
     ui->btOpenFuzzy->setEnabled(true);
     ui->btNewFuzzy->setEnabled(true);
     ui->btOpenData->setEnabled(true);
+    */
 
     emit closeStats();
 
@@ -1057,7 +1069,7 @@ void FugeMain::onComputeFinished()
         file.copy(newName);
     }
 
-    ui->label_fuzzyInfo->setText("<font color = green> Fuzzy system found by co-evolution<font>");
+    //ui->label_fuzzyInfo->setText("<font color = green> Fuzzy system found by co-evolution<font>");
     this->actSaveFuzzy->setEnabled(true);
     this->actCloseFuzzy->setEnabled(true);
     this->actEvalFuzzy->setEnabled(true);
@@ -1065,6 +1077,7 @@ void FugeMain::onComputeFinished()
     this->actPredictFuzzy->setEnabled(true);
     this->actStop->setEnabled(false);
     this->actEditFuzzy->setEnabled(true);
+    /*
     ui->btStop->setEnabled(false);
     ui->btValidate->setEnabled(true);
     ui->btEvaluate->setEnabled(true);
@@ -1072,6 +1085,7 @@ void FugeMain::onComputeFinished()
     ui->btSaveFuzzy->setEnabled(true);
     ui->btEditFuzzy->setEnabled(true);
     ui->btCloseFuzzy->setEnabled(true);
+    */
 
     // Allow the next script execution
     scriptSema.release();
@@ -1101,7 +1115,7 @@ void FugeMain::changeEvent(QEvent *e)
     QMainWindow::changeEvent(e);
     switch (e->type()) {
     case QEvent::LanguageChange:
-        ui->retranslateUi(this);
+        //ui->retranslateUi(this);
         break;
     default:
         break;

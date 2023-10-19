@@ -42,7 +42,7 @@ for fuzzy_sys_name in fuzzy_sys_names:
         for line in f:
             if "Accuracy" in line:
                 accuracy = line.split(" ")[2]
-                print("------------------ accuracy of " + fuzzy_sys_name + " is " + accuracy + " ------------------")
+                print("------------------ accuracy is " + accuracy + " ------------------")
                 break
             
 # Delete the result file
