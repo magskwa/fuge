@@ -24,7 +24,7 @@
   *
   * @brief This class implements the help dialog. It contains the software user guide.
   */
-
+/*
 #include "helpdialog.h"
 #include "ui_helpdialog.h"
 
@@ -51,3 +51,4 @@ void HelpDialog::changeEvent(QEvent *e)
         break;
     }
 }
+*/

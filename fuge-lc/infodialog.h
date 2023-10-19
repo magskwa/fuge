@@ -24,7 +24,7 @@
   *
   * @brief This class implements the generic information dialog.
   */
-
+/*
 #ifndef INFODIALOG_H
 #define INFODIALOG_H
 
@@ -56,3 +56,4 @@ private slots:
 };
 
 #endif // INFODIALOG_H
+*/

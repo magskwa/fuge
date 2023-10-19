@@ -58,7 +58,7 @@ FugeMain::FugeMain(QWidget *parent)
     fSystemVars = 0;
     listFile = new QList<QStringList>;
 
-    help = new HelpDialog();
+    //help = new HelpDialog();
     //aboutDial = new AboutDialog();
     statsPlot = new StatsPlot();
     CoevStats& fitStats = CoevStats::getInstance();
@@ -91,13 +91,14 @@ FugeMain::FugeMain(QWidget *parent)
     connect(ui->btCloseScript, SIGNAL(clicked()), this, SLOT(onActCloseScript()));
 
     this->createActions();
+
     // TODO: There's a ui, form file for this, it shouldn't be implemented in code
     fileMenu = menuBar()->addMenu(tr("&FUGE-LC"));
     fuzzyMenu = menuBar()->addMenu(tr("F&uzzy system"));
     dataMenu = menuBar()->addMenu(tr("&Dataset"));
     paramsMenu = menuBar()->addMenu(tr("&Parameters"));
     scriptMenu = menuBar()->addMenu(tr("&Script"));
-    helpMenu = menuBar()->addMenu(tr("&Help"));    
+    //helpMenu = menuBar()->addMenu(tr("&Help"));
     fileMenu->addAction(actRun);
     fileMenu->addAction(actStop);
     dataMenu->addAction(actOpenData);
@@ -115,8 +116,9 @@ FugeMain::FugeMain(QWidget *parent)
     scriptMenu->addAction(actCloseScript);
     scriptMenu->addAction(actRunScript);
     fileMenu->addAction(actQuit);
-    helpMenu->addAction(actHelp);
-    helpMenu->addAction(actAbout);
+    //helpMenu->addAction(actHelp);
+    //helpMenu->addAction(actAbout);
+
     currentOpennedSystem = "";
 
     // Fuzzy system manual creation not implemented yet...
@@ -250,7 +252,7 @@ void FugeMain::createActions()
     actCloseScript= new QAction(tr("&Close script"), this);
     actRunScript= new QAction(tr("&Run script"), this);
     actQuit = new QAction(tr("&Quit"), this);
-    actHelp = new QAction(tr("&Help..."), this);
+    //actHelp = new QAction(tr("&Help..."), this);
     actAbout = new QAction(tr("&About..."), this);
     actRun->setEnabled(false);
     actStop->setEnabled(false);
@@ -291,7 +293,7 @@ void FugeMain::createActions()
     connect(actCloseScript, SIGNAL(triggered()), this, SLOT(onActCloseScript()));
     connect(actRunScript, SIGNAL(triggered()), this, SLOT(onActRunScript()));
     connect(actQuit, SIGNAL(triggered()), this, SLOT(onActQuit()));
-    connect(actHelp, SIGNAL(triggered()), this, SLOT(onActHelp()));
+    //connect(actHelp, SIGNAL(triggered()), this, SLOT(onActHelp()));
     connect(actAbout, SIGNAL(triggered()), this, SLOT(onActAbout()));
 }
 
@@ -655,6 +657,8 @@ void FugeMain::onActSaveFuzzy()
     }
 }
 
+
+// TODOM : method could be erase
 /**
   * Slot called when the user edits a fuzzy system file.
   */
@@ -670,15 +674,15 @@ void FugeMain::onActEditFuzzy()
         tempDir.mkdir(sysParams.getSavePath()+"temp");
     }
 
-    FuzzyEditor fEditor(this, ComputeThread::bestFSystem);
+    //FuzzyEditor fEditor(this, ComputeThread::bestFSystem);
     if (currentOpennedSystem == "")
         currentOpennedSystem = QString(sysParams.getSavePath()+"temp/currentBest_") +
                 QString::number(QCoreApplication::applicationPid()) + QString(".ffs");
 
-    fEditor.setSystemFile(currentOpennedSystem);
+    //fEditor.setSystemFile(currentOpennedSystem);
 
-    fEditor.setDataFile(listFile);
-    fEditor.exec();
+    //fEditor.setDataFile(listFile);
+    //fEditor.exec();
 }
 
 /**
@@ -1029,14 +1033,13 @@ void FugeMain::onComputeFinished()
 
     // Dont interrupt the script execution with a save dialog
     if (!scriptLoaded) {
-        InfoDialog infDiag;
-        int isOk;
+        //InfoDialog infDiag;
 
-        infDiag.setWindowTitle("Info");
-        infDiag.setInfo("Co-evolution finished !");
-        infDiag.setQuestion("Do you want to save the best fuzzy system ?");
-        isOk = infDiag.exec();
-
+        //infDiag.setWindowTitle("Info");
+        //infDiag.setInfo("Co-evolution finished !");
+        //infDiag.setQuestion("Do you want to save the best fuzzy system ?");
+        //isOk = infDiag.exec();
+        /*
         if (isOk == 1) {
             QFileDialog saveFileDiag(this, tr("Save fuzzy system"), sysParams.getSavePath()+"fuzzySystems", "*.ffs");
             saveFileDiag.setAcceptMode(QFileDialog::AcceptSave);
@@ -1048,6 +1051,7 @@ void FugeMain::onComputeFinished()
                 ComputeThread::bestFSystem->saveToFile(fileName, stats.getFitMaxPop1());
             }
         }
+        */
     }
     // Script execution
     else {
@@ -1120,7 +1124,7 @@ void FugeMain::onScriptFinished()
   */
 void FugeMain::onActHelp()
 {
-    help->show();
+    //help->show();
 }
 
 void FugeMain::changeEvent(QEvent *e)

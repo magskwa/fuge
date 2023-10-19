@@ -24,7 +24,7 @@
   *
   * @brief This class implements a dialog allowing to completely modify a loaded fuzzy system.
   */
-
+/*
 #ifndef FUZZYVIEWER_H
 #define FUZZYVIEWER__H
 
@@ -95,63 +95,3 @@ private:
   * @class RefComboBox
   * @brief This class inherits a ComboBox while adding the position (row,column) information.
   */
-class RefComboBox : public QComboBox
-{
-    Q_OBJECT
-
-    private:
-        int li;
-        int col;
-
-    public:
-        RefComboBox(QWidget *parent = 0, int l = 0, int c = 0) : QComboBox(parent)
-        {
-            li = l;
-            col = c;
-            connect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(onIdxChanged(int)));
-        }
-        virtual ~RefComboBox()
-        {}
-
-    public slots:
-        void onIdxChanged(int idx)
-        {
-            emit idxChanged(idx, li, col);
-        }
-
-    signals:
-        void idxChanged(int idx, int li, int col);
-
-};
-
-/**
-  * @class RefLineEdit
-  * @brief This class inherits a LineEdit while adding the position (row,column) information.
-  */
-class RefLineEdit : public QLineEdit
-{
-    Q_OBJECT
-
-    private:
-        int li;
-        int col;
-
-    public:
-        RefLineEdit(QWidget *parent = 0, int l = 0, int c = 0) : QLineEdit(parent)
-        {
-            li = l;
-            col = c;
-            connect(this, SIGNAL(textChanged(QString)), this, SLOT(onTextChanged(QString)));
-        }
-        virtual ~RefLineEdit() {}
-
-    public slots:
-        void onTextChanged(QString text)
-        {
-            emit txtChanged(text, li, col);
-        }
-
-    signals:
-        void txtChanged(QString txt, int li, int col);
-};
-#endif // FUZZYVIEWER__H

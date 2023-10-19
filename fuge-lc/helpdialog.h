@@ -25,6 +25,7 @@
   * @brief This class implements the help dialog. It contains the software user guide.
   */
 
+/*
 #ifndef HELPDIALOG_H
 #define HELPDIALOG_H
 
@@ -49,3 +50,4 @@ private:
 };
 
 #endif // HELPDIALOG_H
+*/

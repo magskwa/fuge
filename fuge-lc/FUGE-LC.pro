@@ -29,10 +29,10 @@ SOURCES += main.cpp \
     systemparameters.cpp \
     #editparamsdialog.cpp \
     #evalplot.cpp \
-    infodialog.cpp \
-    fuzzyeditor.cpp \
+    #infodialog.cpp \
+    #fuzzyeditor.cpp \
     scriptmanager.cpp \
-    helpdialog.cpp
+    #helpdialog.cpp
 
 HEADERS += fugemain.h \
     #aboutdialog.h \
@@ -43,10 +43,10 @@ HEADERS += fugemain.h \
     systemparameters.h \
     #editparamsdialog.h \
     #evalplot.h \
-    infodialog.h \
-    fuzzyeditor.h \
+    #infodialog.h \
+    #fuzzyeditor.h \
     scriptmanager.h \
-    helpdialog.h
+    #helpdialog.h
 
 FORMS += fugemain.ui \
     #aboutdialog.ui \
@@ -54,10 +54,10 @@ FORMS += fugemain.ui \
     statsplot.ui \
     #editparamsdialog.ui \
     #evalplot.ui \
-    infodialog.ui \
+    #infodialog.ui \
     #evalplotframe.ui \
-    fuzzyeditor.ui \
-    helpdialog.ui
+    #fuzzyeditor.ui \
+    #helpdialog.ui
 
 RESOURCES += fuzzyResources.qrc
 

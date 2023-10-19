@@ -49,17 +49,17 @@
 #include "fuzzysystem.h"
 
 //#include "aboutdialog.h"
-#include "helpdialog.h"
+//#include "helpdialog.h"
 #include "statsplot.h"
 #include "computethread.h"
 //#include "evalplot.h"
 #include "scriptmanager.h"
 #include "ui_fugemain.h"
 //#include "errordialog.h"
-#include "infodialog.h"
+//#include "infodialog.h"
 #include "systemparameters.h"
 //#include "editparamsdialog.h"
-#include "fuzzyeditor.h"
+//#include "fuzzyeditor.h"
 #include "fuzzyvariable.h"
 #include "fuzzyset.h"
 #include "fuzzyrulegenome.h"
@@ -96,7 +96,7 @@ private:
     void createActions();
     Ui::FugeMain* ui;
     //AboutDialog* aboutDial;
-    HelpDialog* help;
+    //HelpDialog* help;
     StatsPlot* statsPlot;
     //EvalPlot* evalPlot;
     ComputeThread* computeThread;
