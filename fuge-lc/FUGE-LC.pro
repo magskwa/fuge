@@ -11,53 +11,25 @@
 TARGET = FUGE-LC
 TEMPLATE = app
 
-QT += core gui widgets xml
+QT += core widgets xml
 
 include(libGGA/libGGA.pri)
 include(fuzzy/Fuzzy.pri)
 include(coev/Coev.pri)
-#include(Dependencies/qwt/qwt.pri)
 include(Dependencies/duktape/duktape.pri)
 
 SOURCES += main.cpp \
     fugemain.cpp \
-    #aboutdialog.cpp \
-    #errordialog.cpp \
     fuzzymembershipssingle.cpp \
-    #statsplot.cpp \
     computethread.cpp \
     systemparameters.cpp \
-    #editparamsdialog.cpp \
-    #evalplot.cpp \
-    #infodialog.cpp \
-    #fuzzyeditor.cpp \
     scriptmanager.cpp \
-    #helpdialog.cpp
 
 HEADERS += fugemain.h \
-    #aboutdialog.h \
-    #errordialog.h \
     fuzzymembershipssingle.h \
-    #statsplot.h \
     computethread.h \
     systemparameters.h \
-    #editparamsdialog.h \
-    #evalplot.h \
-    #infodialog.h \
-    #fuzzyeditor.h \
     scriptmanager.h \
-    #helpdialog.h
-
-#FORMS += fugemain.ui \
-    #aboutdialog.ui \
-    #errordialog.ui \
-    #statsplot.ui \
-    #editparamsdialog.ui \
-    #evalplot.ui \
-    #infodialog.ui \
-    #evalplotframe.ui \
-    #fuzzyeditor.ui \
-    #helpdialog.ui
 
 RESOURCES += fuzzyResources.qrc
 
