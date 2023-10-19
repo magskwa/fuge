@@ -52,7 +52,7 @@ FORMS += fugemain.ui \
     #aboutdialog.ui \
     errordialog.ui \
     statsplot.ui \
-    editparamsdialog.ui \
+    #editparamsdialog.ui \
     evalplot.ui \
     infodialog.ui \
     evalplotframe.ui \

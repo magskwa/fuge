@@ -905,8 +905,8 @@ void FugeMain::onActEvalFuzzy(bool doValid, bool fromCmd)
 void FugeMain::onActEditParams()
 {
     scriptLoaded = false;
-    EditParamsDialog editParams(this, &paramsLoaded, scriptLoaded);
-    editParams.exec();
+    //EditParamsDialog editParams(this, &paramsLoaded, scriptLoaded);
+    //editParams.exec();
 
     if (paramsLoaded) {
         if (dataLoaded) {

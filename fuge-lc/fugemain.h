@@ -58,7 +58,7 @@
 #include "errordialog.h"
 #include "infodialog.h"
 #include "systemparameters.h"
-#include "editparamsdialog.h"
+//#include "editparamsdialog.h"
 #include "fuzzyeditor.h"
 #include "fuzzyvariable.h"
 #include "fuzzyset.h"

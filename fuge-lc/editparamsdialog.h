@@ -24,7 +24,7 @@
   *
   * @brief This class implements the parameters edition dialog.
   */
-
+/*
 #ifndef EDITPARAMSDIALOG_H
 #define EDITPARAMSDIALOG_H
 
@@ -67,3 +67,4 @@ private slots:
 };
 
 #endif // EDITPARAMSDIALOG_H
+*/
