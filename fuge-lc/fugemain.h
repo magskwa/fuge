@@ -98,9 +98,9 @@ private:
     QAction* actEvalFuzzy;
     QAction* actPredictFuzzy;
     //QAction* actEditParams;
-    QAction* actOpenScript;
-    QAction* actCloseScript;
-    QAction* actRunScript;
+    //QAction* actOpenScript;
+    //QAction* actCloseScript;
+    //QAction* actRunScript;
     QAction* actQuit;
     //QAction* actAbout;
     //QAction* actHelp;
@@ -138,9 +138,9 @@ private slots:
     void onActSaveFuzzy();
     //void onActEditFuzzy();
     //void onActEditParams();
-    void onActOpenScript();
-    void onActCloseScript();
-    void onActRunScript();
+    //void onActOpenScript();
+    //void onActCloseScript();
+    //void onActRunScript();
     //void onActAbout();
     //void onActHelp();
     //void closeEvent(QCloseEvent*);

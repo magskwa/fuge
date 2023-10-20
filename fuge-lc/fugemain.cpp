@@ -176,19 +176,19 @@ void FugeMain::createActions()
     actEvalFuzzy = new QAction(tr("Ev&aluate fuzzy system..."), this);
     actPredictFuzzy = new QAction(tr("&Predict fuzzy system..."), this);
     //actEditParams = new QAction(tr("&Edit parameters..."), this);
-    actOpenScript= new QAction(tr("&Open script..."), this);
-    actCloseScript= new QAction(tr("&Close script"), this);
-    actRunScript= new QAction(tr("&Run script"), this);
+    //actOpenScript= new QAction(tr("&Open script..."), this);
+    //actCloseScript= new QAction(tr("&Close script"), this);
+    //actRunScript= new QAction(tr("&Run script"), this);
     actQuit = new QAction(tr("&Quit"), this);
     //actAbout = new QAction(tr("&About..."), this);
     actRun->setEnabled(false);
     actStop->setEnabled(false);
-    actRunScript->setEnabled(false);
+    //actRunScript->setEnabled(false);
     actSaveFuzzy->setEnabled(false);
     actCloseFuzzy->setEnabled(false);
     //actEditFuzzy->setEnabled(false);
     //actCloseData->setEnabled(false);
-    actCloseScript->setEnabled(false);
+    //actCloseScript->setEnabled(false);
     actValidFuzzy->setEnabled(false);
     actEvalFuzzy->setEnabled(false);
     actPredictFuzzy->setEnabled(false);
@@ -206,9 +206,9 @@ void FugeMain::createActions()
     connect(actEvalFuzzy, SIGNAL(triggered()), this, SLOT(onActEvalFuzzy()));
     connect(actPredictFuzzy, SIGNAL(triggered()), this, SLOT(onActPredictFuzzy()));
     //connect(actEditParams, SIGNAL(triggered()), this, SLOT(onActEditParams()));
-    connect(actOpenScript, SIGNAL(triggered()), this, SLOT(onActOpenScript()));
-    connect(actCloseScript, SIGNAL(triggered()), this, SLOT(onActCloseScript()));
-    connect(actRunScript, SIGNAL(triggered()), this, SLOT(onActRunScript()));
+    //connect(actOpenScript, SIGNAL(triggered()), this, SLOT(onActOpenScript()));
+    //connect(actCloseScript, SIGNAL(triggered()), this, SLOT(onActCloseScript()));
+    //connect(actRunScript, SIGNAL(triggered()), this, SLOT(onActRunScript()));
     connect(actQuit, SIGNAL(triggered()), this, SLOT(onActQuit()));
     //connect(actAbout, SIGNAL(triggered()), this, SLOT(onActAbout()));
 }
@@ -683,6 +683,7 @@ void FugeMain::onActEditParams()
 /**
   * Slot called when the user opens a script file.
   */
+/*
 void FugeMain::onActOpenScript()
 {
     QString fileName = QFileDialog::getOpenFileName(NULL, tr("Open script File"), "scripts", "*.fs");
@@ -700,20 +701,24 @@ void FugeMain::onActOpenScript()
         }
     }
 }
+*/
 
 /**
   * Slot called when the user closes a script file.
   */
+/*
 void FugeMain::onActCloseScript()
 {
     sMan->setScriptFileName(NULL);
     actRunScript->setEnabled(false);
     scriptLoaded = false;
 }
+*/
 
 /**
   * Slot called when the user performs a script run.
   */
+/*
 void FugeMain::onActRunScript()
 {
     if (dataLoaded) {
@@ -722,6 +727,7 @@ void FugeMain::onActRunScript()
         actSaveFuzzy->setEnabled(true);
     }
 }
+*/
 
 /**
   * Slot called by the computational thread when an evolution run is finished.
