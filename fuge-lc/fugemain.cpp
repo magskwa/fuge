@@ -86,7 +86,7 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
     doRunFromCmd = true;
 
     // First open the dataset
-    QFile file(dataSet);
+    QFile file(dataSet);    // create a qfile for dataset
     file.open(QIODevice::ReadOnly);
     QTextStream csvFile(&file);
     QString line;
@@ -96,9 +96,9 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
     while (!csvFile.atEnd()) {
         line = csvFile.readLine();
         list = line.split(';');
-        listFile->append(list);
-     }
-        dataLoaded = true;
+        listFile->append(list);     // listFile = double dimension list
+    }
+    dataLoaded = true;
 
     // Set the dataset name in the parameters
     SystemParameters& sysParams = SystemParameters::getInstance();
@@ -108,17 +108,21 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
     if (eval || predict) {
         fSystemVars = new FuzzySystem();
         fSystemRules = new FuzzySystem();
+
         ComputeThread::bestFSystem = fSystemVars;
+
         connect(this, SIGNAL(openFuzzySystem(QString)), fSystemVars, SLOT(loadFromFile(QString)));
         connect(this, SIGNAL(openFuzzySystem(QString)), fSystemRules, SLOT(loadFromFile(QString)));
         currentOpennedSystem = fuzzyFile;
+
         emit openFuzzySystem(fuzzyFile);
-        this->actSaveFuzzy->setEnabled(true);
-        this->actCloseFuzzy->setEnabled(true);
-        this->actEvalFuzzy->setEnabled(true);
-        this->actValidFuzzy->setEnabled(true);
-        this->actPredictFuzzy->setEnabled(true);
-        this->actEditFuzzy->setEnabled(true);
+
+        //this->actSaveFuzzy->setEnabled(true);
+        //this->actCloseFuzzy->setEnabled(true);
+        //this->actEvalFuzzy->setEnabled(true);
+        //this->actValidFuzzy->setEnabled(true);
+        //this->actPredictFuzzy->setEnabled(true);
+        //this->actEditFuzzy->setEnabled(true);
         sysParams.setDatasetName(dataSet);
 
         if (eval) {
@@ -148,7 +152,7 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
         sMan->setScriptFileName(scriptFile);
         sMan->readScript();
         sMan->start();
-        this->actSaveFuzzy->setEnabled(true);
+        //this->actSaveFuzzy->setEnabled(true);
     }
 }
 
@@ -340,6 +344,7 @@ void FugeMain::onActQuit()
   */
 void FugeMain::onActOpenData()
 {
+    /*
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open dataset"), "../../../../datasets", "*.csv");
     if (fileName != NULL) {
         // Clear previous loaded data
@@ -371,6 +376,7 @@ void FugeMain::onActOpenData()
         }
         actCloseData->setEnabled(true);
     }
+    */
 }
 
 /**
@@ -806,6 +812,7 @@ void FugeMain::changeEvent(QEvent *e)
 /**
   * Slot called when the user quits the application.
   */
+/*
 void FugeMain::closeEvent(QCloseEvent*)
 {
     SystemParameters& sysParams = SystemParameters::getInstance();
@@ -822,3 +829,4 @@ void FugeMain::closeEvent(QCloseEvent*)
 
     this->close();
 }
+*/

@@ -144,7 +144,7 @@ private slots:
     void onActRunScript();
     void onActAbout();
     void onActHelp();
-    void closeEvent(QCloseEvent*);
+    //void closeEvent(QCloseEvent*);
 
 signals:
     void clearStats();

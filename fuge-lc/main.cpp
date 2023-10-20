@@ -93,9 +93,9 @@ QStringList fakeCmdLine()
     argList.append("/Users/mer/Documents/fuge/build-FUGE-LC-Qt_macoOS_v4-Debug/FUGE-LC.app/Contents/MacOS/FUGE-LC");
     //argList.append("--evaluate");
     argList.append("-d");
-    argList.append("/Users/mer/Documents/projet/dataset/arrhythmia_binary_small_sorted.csv");
+    argList.append("/Users/mer/Documents/projet/dataset/CancerDiag2_headers.csv");
     argList.append("-s");
-    argList.append("/Users/mer/Documents/projet/dataset/test.fs");
+    argList.append("/Users/mer/Documents/projet/dataset/CancerRef.fs");
     //argList.append("-f");
     //argList.append("/Users/mer/Desktop/script_result/fuzzySystems/");
     argList.append("-g");
@@ -234,29 +234,19 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    //if (parseArguments(a.arguments())) {
+    if (parseArguments(a.arguments())) {
 
-    if(parseArguments(fakeCmdLine())){
+    //if(parseArguments(fakeCmdLine())){
 
         FugeMain w;
-        // Load the GUI if needed
-        //if (useGUI)
-            //w.show();
 
         // Run automatically from command line if needed
-        if (runFromCmd) {
-            if (!eval && !predict) {
-
-                w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
-                return a.exec();
-            }
-            else {
-                w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
-            }
+        if (!eval && !predict) {
+            w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
+            return a.exec();
         }
         else {
-            // Start the event loop
-            return a.exec();
+            w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
         }
     }
 }
