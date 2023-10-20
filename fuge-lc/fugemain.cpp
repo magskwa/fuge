@@ -33,9 +33,8 @@ QSemaphore scriptSema(0);
 bool doRunFromCmd = false;
 QList<QStringList>* FugeMain::listFile = 0;
 
-FugeMain::FugeMain(QWidget *parent)
-    : QMainWindow(parent), /*ui(new Ui::FugeMain),*/
-      fSystemRules(0), fSystemVars(0)
+FugeMain::FugeMain()
+    : fSystemRules(0), fSystemVars(0)
 {
     // Initialise the random generator
     QTime time;
@@ -86,7 +85,7 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
     doRunFromCmd = true;
 
     // First open the dataset
-    QFile file(dataSet);    // create a qfile for dataset
+    QFile file(dataSet);
     file.open(QIODevice::ReadOnly);
     QTextStream csvFile(&file);
     QString line;
@@ -96,7 +95,7 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
     while (!csvFile.atEnd()) {
         line = csvFile.readLine();
         list = line.split(';');
-        listFile->append(list);     // listFile = double dimension list
+        listFile->append(list);
     }
     dataLoaded = true;
 
@@ -117,12 +116,6 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
 
         emit openFuzzySystem(fuzzyFile);
 
-        //this->actSaveFuzzy->setEnabled(true);
-        //this->actCloseFuzzy->setEnabled(true);
-        //this->actEvalFuzzy->setEnabled(true);
-        //this->actValidFuzzy->setEnabled(true);
-        //this->actPredictFuzzy->setEnabled(true);
-        //this->actEditFuzzy->setEnabled(true);
         sysParams.setDatasetName(dataSet);
 
         if (eval) {
@@ -144,7 +137,6 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
         else if (predict) {
             this->onActPredictFuzzy(true);
         }
-        this->close();
     }
     else {
         // Then open the script
@@ -152,7 +144,6 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
         sMan->setScriptFileName(scriptFile);
         sMan->readScript();
         sMan->start();
-        //this->actSaveFuzzy->setEnabled(true);
     }
 }
 
@@ -164,53 +155,19 @@ void FugeMain::createActions()
     // TODO: It's difficult to update and to maintain.
     // All default values can be set on the form files as the default text.
     actRun = new QAction(tr("&Run..."), this);
-    actStop = new QAction(tr("&Stop"), this);
-    //actOpenData = new QAction(tr("&Open dataset..."), this);
-    //actCloseData = new QAction(tr("&Close dataset"), this);
-    //actNewFuzzy = new QAction(tr("&New fuzzy system"), this);
-    actOpenFuzzy = new QAction(tr("&Open fuzzy system..."), this);
-    //actCloseFuzzy = new QAction(tr("&Close fuzzy system"), this);
-    //actSaveFuzzy = new QAction(tr("&Save fuzzy system..."), this);
-    //actEditFuzzy = new QAction(tr("&Edit fuzzy system..."), this);
-    //actValidFuzzy = new QAction(tr("&Validate fuzzy system..."), this);
     actEvalFuzzy = new QAction(tr("Ev&aluate fuzzy system..."), this);
     actPredictFuzzy = new QAction(tr("&Predict fuzzy system..."), this);
-    //actEditParams = new QAction(tr("&Edit parameters..."), this);
-    //actOpenScript= new QAction(tr("&Open script..."), this);
-    //actCloseScript= new QAction(tr("&Close script"), this);
-    //actRunScript= new QAction(tr("&Run script"), this);
     actQuit = new QAction(tr("&Quit"), this);
-    //actAbout = new QAction(tr("&About..."), this);
     actRun->setEnabled(false);
-    actStop->setEnabled(false);
-    //actRunScript->setEnabled(false);
-    //actSaveFuzzy->setEnabled(false);
-    //actCloseFuzzy->setEnabled(false);
-    //actEditFuzzy->setEnabled(false);
-    //actCloseData->setEnabled(false);
-    //actCloseScript->setEnabled(false);
-    //actValidFuzzy->setEnabled(false);
     actEvalFuzzy->setEnabled(false);
     actPredictFuzzy->setEnabled(false);
 
     // TODO: triggered should be auto-linked to slots onXXXTriggered.
     // It's possible to do it by renaming slots (See Qt Documentation)
     connect(actRun, SIGNAL(triggered()), this, SLOT(onActRun()));
-    connect(actStop, SIGNAL(triggered()), computeThread, SLOT(onStopEvo()));
-    //connect(actOpenData, SIGNAL(triggered()), this, SLOT(onActOpenData()));
-    //connect(actCloseData, SIGNAL(triggered()), this, SLOT(onActCloseData()));
-    //connect(actNewFuzzy, SIGNAL(triggered()), this, SLOT(onActNewFuzzy()));
-    connect(actOpenFuzzy, SIGNAL(triggered()), this, SLOT(onActOpenFuzzy()));
-    //connect(actCloseFuzzy, SIGNAL(triggered()), this, SLOT(onActCloseFuzzy()));
-    //connect(actSaveFuzzy, SIGNAL(triggered()), this, SLOT(onActSaveFuzzy()));
     connect(actEvalFuzzy, SIGNAL(triggered()), this, SLOT(onActEvalFuzzy()));
     connect(actPredictFuzzy, SIGNAL(triggered()), this, SLOT(onActPredictFuzzy()));
-    //connect(actEditParams, SIGNAL(triggered()), this, SLOT(onActEditParams()));
-    //connect(actOpenScript, SIGNAL(triggered()), this, SLOT(onActOpenScript()));
-    //connect(actCloseScript, SIGNAL(triggered()), this, SLOT(onActCloseScript()));
-    //connect(actRunScript, SIGNAL(triggered()), this, SLOT(onActRunScript()));
     connect(actQuit, SIGNAL(triggered()), this, SLOT(onActQuit()));
-    //connect(actAbout, SIGNAL(triggered()), this, SLOT(onActAbout()));
 }
 
 /**
@@ -309,20 +266,10 @@ void FugeMain::onActRun()
         emit clearStats();
         computeThread->start();
         isRunning = true;
-
-        // TODO: this logic should be implemented in a method.
-        actStop->setEnabled(true);
-        //actCloseData->setEnabled(false);
-        //actOpenData->setEnabled(false);
-        actOpenFuzzy->setEnabled(false);
-        //actNewFuzzy->setEnabled(false);
     }
 
-    //this->actSaveFuzzy->setEnabled(true);
     this->actPredictFuzzy->setEnabled(false);
-    //this->actValidFuzzy->setEnabled(false);
     this->actEvalFuzzy->setEnabled(false);
-    //this->actEditFuzzy->setEnabled(false);
     }catch(...)
     {
         qCritical() << "Exception in FugeMain::onActRun";
@@ -335,171 +282,7 @@ void FugeMain::onActRun()
   */
 void FugeMain::onActQuit()
 {
-    this->close();
 }
-
-/**
-  * Slot called when the user opens a dataset.
-  */
-/*
-void FugeMain::onActOpenData()
-{
-
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open dataset"), "../../../../datasets", "*.csv");
-    if (fileName != NULL) {
-        // Clear previous loaded data
-        if (dataLoaded)
-            listFile->clear();
-        QFile file(fileName);
-        file.open(QIODevice::ReadOnly);
-        QTextStream csvFile(&file);
-        QString line;
-        QStringList list;
-
-        // Save the name of the dataset
-        SystemParameters& sysParams = SystemParameters::getInstance();
-        sysParams.setDatasetName(fileName);
-
-        // Read the csv file and store info in a double dimension list.
-        while (!csvFile.atEnd()) {
-            line = csvFile.readLine();
-            list = line.split(';');
-            listFile->append(list);
-         }
-        dataLoaded = true;
-        file.close();
-        if (paramsLoaded) {
-            actRun->setEnabled(true);
-        }
-        if (scriptLoaded) {
-            actRunScript->setEnabled(true);
-        }
-        actCloseData->setEnabled(true);
-    }
-
-}
-*/
-/**
-  * Slot called when the user closes a dataset.
-  */
-/*
-void FugeMain::onActCloseData()
-{
-    listFile->clear();
-    dataLoaded = false;
-    actRun->setEnabled(false);
-}
-
-
-/**
-  * Slot called when the user opens a fuzzy system file.
-  */
-void FugeMain::onActOpenFuzzy()
-{
-    SystemParameters& sysParams = SystemParameters::getInstance();
-
-
-    QFile tempFile(sysParams.getSavePath() + "temp.ffs");
-    if (tempFile.exists())
-         tempFile.remove();
-
-    //connect(this, SIGNAL(evalFuzzySystem()), ComputeThread::bestFSystem, SLOT(doEvaluateFitness()));
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open fuzzy system"), sysParams.getSavePath()+"fuzzySystems", "*.ffs");
-    if (fileName != NULL) {
-        if (ComputeThread::bestFSystem != 0) {
-            delete ComputeThread::bestFSystem;
-            ComputeThread::bestFSystem = NULL;
-        }
-        ComputeThread::bestFSystem = new FuzzySystem();
-        connect(this, SIGNAL(openFuzzySystem(QString)), ComputeThread::bestFSystem, SLOT(loadFromFile(QString)));
-        currentOpennedSystem = fileName;
-        emit openFuzzySystem(fileName);
-
-        // TODO: this logic should be in a function.
-        //this->actSaveFuzzy->setEnabled(true);
-        //this->actCloseFuzzy->setEnabled(true);
-        this->actEvalFuzzy->setEnabled(true);
-        //this->actValidFuzzy->setEnabled(true);
-        this->actPredictFuzzy->setEnabled(true);
-        //this->actEditFuzzy->setEnabled(true);
-    }
-}
-
-/**
-  * Slot called when the user closes a fuzzy system file.
-  */
-/*
-void FugeMain::onActCloseFuzzy()
-{
-    SystemParameters& sysParams = SystemParameters::getInstance();
-
-    currentOpennedSystem = "";
-    if (ComputeThread::bestFSystem != 0) {
-        delete ComputeThread::bestFSystem;
-        ComputeThread::bestFSystem = 0;
-    }
-    QFile tempFile(sysParams.getSavePath()+"temp.ffs");
-    if (tempFile.exists())
-         tempFile.remove();
-    // Clear previous loaded data
-    //if (dataLoaded)
-        //this->onActCloseData();
-
-    // TODO: This logic should be in a function.
-    this->actSaveFuzzy->setEnabled(false);
-    this->actCloseFuzzy->setEnabled(false);
-    //this->actEditFuzzy->setEnabled(false);
-    this->actEvalFuzzy->setEnabled(false);
-    //this->actValidFuzzy->setEnabled(false);
-    this->actPredictFuzzy->setEnabled(false);
-}
-*/
-
-/**
-  * Slot called when the user saves a fuzzy system file.
-  */
-/*
-void FugeMain::onActSaveFuzzy()
-{
-    SystemParameters& sysParams = SystemParameters::getInstance();
-
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save fuzzy system"), sysParams.getSavePath()+"fuzzySystems" , "*.ffs");
-    if (fileName != NULL) {
-        // If the evolution is running, we ask the evaluation operator to save the best system
-        if (isRunning) {
-            emit saveFuzzySystem(fileName);
-        }
-        // If the evolution is finished, fSystem is the best system
-        else {
-            CoevStats& stats = CoevStats::getInstance();
-            ComputeThread::bestFSystem->saveToFile(fileName, stats.getFitMaxPop1());
-        }
-    }
-}
-*/
-
-// TODOM : method could be erase
-/**
-  * Slot called when the user edits a fuzzy system file.
-  */
-/*
-void FugeMain::onActEditFuzzy()
-{
-    SystemParameters& sysParams = SystemParameters::getInstance();
-
-    QString name = ComputeThread::bestFSystem->getInVar(0)->getName();
-
-    // Ensure that a temp directory exists. If not we create one.
-    QDir tempDir;
-    if (!tempDir.exists(sysParams.getSavePath()+"temp")) {
-        tempDir.mkdir(sysParams.getSavePath()+"temp");
-    }
-
-    if (currentOpennedSystem == "")
-        currentOpennedSystem = QString(sysParams.getSavePath()+"temp/currentBest_") +
-                QString::number(QCoreApplication::applicationPid()) + QString(".ffs");
-}
-*/
 
 /**
   * Slot called when the user asks for a prediction.
@@ -510,7 +293,7 @@ void FugeMain::onActPredictFuzzy(bool fromCmd)
     QString fileName;
 
     if (!fromCmd)
-        fileName = QFileDialog::getOpenFileName(this, tr("Open a test dataset (WITHOUT OUPTUT VALUES)"), "../../../../datasets", "*.csv");
+        fileName = "blabla.ffs"; /* QFileDialog::getOpenFileName(this, tr("Open a test dataset (WITHOUT OUPTUT VALUES)"), "../../../../datasets", "*.csv");*/
     else {
         fileName = sysParams.getDatasetName();
     }
@@ -569,15 +352,6 @@ void FugeMain::onActPredictFuzzy(bool fromCmd)
     }
 }
 
-/**
-  * Slot called when the user asks for a validation.
-  */
-/*
-void FugeMain::onActValidFuzzy()
-{
-    this->onActEvalFuzzy(true);
-}
-*/
 
 /**
   * Slot called when the user asks for an evalutation.
@@ -598,7 +372,7 @@ void FugeMain::onActEvalFuzzy(bool doValid, bool fromCmd)
         QFile file(fileName);
     }
     else {
-        fileName = QFileDialog::getOpenFileName(this, tr("Open a test dataset"), "../../../../datasets", "*.csv");
+        fileName = "blabla.ffs"; /* QFileDialog::getOpenFileName(this, tr("Open a test dataset"), "../../../../datasets", "*.csv");*/
     }
 
     QFile file(fileName);
@@ -662,72 +436,6 @@ void FugeMain::onActEvalFuzzy(bool doValid, bool fromCmd)
 }
 
 /**
-  * Slot called when the user edits the parameters.
-  */
-/*
-void FugeMain::onActEditParams()
-{
-    scriptLoaded = false;
-
-    if (paramsLoaded) {
-        if (dataLoaded) {
-            actRun->setEnabled(true);
-            onActCloseScript();
-        }
-    }
-}
-*/
-
-/**
-  * Slot called when the user opens a script file.
-  */
-/*
-void FugeMain::onActOpenScript()
-{
-    QString fileName = QFileDialog::getOpenFileName(NULL, tr("Open script File"), "scripts", "*.fs");
-    if (fileName != NULL) {
-        scriptLoaded = true;
-        paramsLoaded = true;
-        actCloseScript->setEnabled(true);
-        this->actCloseScript->setEnabled(true);
-
-        sMan->setScriptFileName(fileName);
-        sMan->readScript();
-        if (dataLoaded && sMan->isScriptReady()) {
-            actRunScript->setEnabled(true);
-            actRun->setEnabled(false);
-        }
-    }
-}
-*/
-
-/**
-  * Slot called when the user closes a script file.
-  */
-/*
-void FugeMain::onActCloseScript()
-{
-    sMan->setScriptFileName(NULL);
-    actRunScript->setEnabled(false);
-    scriptLoaded = false;
-}
-*/
-
-/**
-  * Slot called when the user performs a script run.
-  */
-/*
-void FugeMain::onActRunScript()
-{
-    if (dataLoaded) {
-        sMan->start();
-        actStop->setEnabled(true);
-        actSaveFuzzy->setEnabled(true);
-    }
-}
-*/
-
-/**
   * Slot called by the computational thread when an evolution run is finished.
   */
 void FugeMain::onComputeFinished()
@@ -739,11 +447,6 @@ void FugeMain::onComputeFinished()
     computeThread = 0;
 
     isRunning = false;
-    //actCloseData->setEnabled(true);
-    actOpenFuzzy->setEnabled(true);
-    //actNewFuzzy->setEnabled(true);
-    //actOpenData->setEnabled(true);
-    actStop->setEnabled(false);
 
     emit closeStats();
 
@@ -777,14 +480,8 @@ void FugeMain::onComputeFinished()
     newNameStream.flush();
     file.copy(newName);
 
-
-    //this->actSaveFuzzy->setEnabled(true);
-    //this->actCloseFuzzy->setEnabled(true);
     this->actEvalFuzzy->setEnabled(true);
-    //this->actValidFuzzy->setEnabled(true);
     this->actPredictFuzzy->setEnabled(true);
-    this->actStop->setEnabled(false);
-    //this->actEditFuzzy->setEnabled(true);
 
     // Allow the next script execution
     scriptSema.release();
@@ -804,25 +501,3 @@ void FugeMain::changeEvent(QEvent *e)
 {
 
 }
-
-/**
-  * Slot called when the user quits the application.
-  */
-/*
-void FugeMain::closeEvent(QCloseEvent*)
-{
-    SystemParameters& sysParams = SystemParameters::getInstance();
-
-    // Delete the temporary fuzzy system file
-    QString fileN = QString(sysParams.getSavePath()+"temp/currentBest_") +
-            QString::number(QCoreApplication::applicationPid()) + QString(".ffs");
-    QString logFile = QString(sysParams.getSavePath()+"temp/running_") +
-            QString::number(QCoreApplication::applicationPid()) + QString(".csv");
-    QFile file(fileN);
-    QFile lFile(logFile);
-    file.remove();
-    lFile.remove();
-
-    this->close();
-}
-*/

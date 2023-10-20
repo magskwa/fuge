@@ -62,12 +62,12 @@ class ComputeThread;
 
 extern QFile *fitLogFile;
 
-class FugeMain : public QMainWindow
+class FugeMain : public QObject
 {
     Q_OBJECT
 
 public:
-    FugeMain(QWidget *parent = 0);
+    FugeMain();
     ~FugeMain();
 
     void runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzyFile,
@@ -87,29 +87,9 @@ private:
 
     ScriptManager* sMan;
     QAction* actRun;
-    QAction* actStop;
-    //QAction* actOpenData;
-    //QAction* actCloseData;
-    //QAction* actNewFuzzy;
-    QAction* actOpenFuzzy;
-    //QAction* actCloseFuzzy;
-    //QAction* actSaveFuzzy;
-    //QAction* actValidFuzzy;
     QAction* actEvalFuzzy;
     QAction* actPredictFuzzy;
-    //QAction* actEditParams;
-    //QAction* actOpenScript;
-    //QAction* actCloseScript;
-    //QAction* actRunScript;
     QAction* actQuit;
-    //QAction* actAbout;
-    //QAction* actHelp;
-    //QMenu* fileMenu;
-    //QMenu* dataMenu;
-    //QMenu* fuzzyMenu;
-    //QMenu* paramsMenu;
-    //QMenu* scriptMenu;
-    //QMenu* helpMenu;
 
     QString currentOpennedSystem;
     void setDefaultSysParams();
@@ -127,23 +107,8 @@ public slots:
 private slots:
     void onActRun();
     void onActQuit();
-    //void onActOpenData();
-    //void onActCloseData();
-    //void onActNewFuzzy();
-    void onActOpenFuzzy();
-    //void onActCloseFuzzy();
-    //void onActValidFuzzy();
     void onActEvalFuzzy(bool doValid = false, bool fromCmd = false);
     void onActPredictFuzzy(bool fromCmd = false);
-    //void onActSaveFuzzy();
-    //void onActEditFuzzy();
-    //void onActEditParams();
-    //void onActOpenScript();
-    //void onActCloseScript();
-    //void onActRunScript();
-    //void onActAbout();
-    //void onActHelp();
-    //void closeEvent(QCloseEvent*);
 
 signals:
     void clearStats();
