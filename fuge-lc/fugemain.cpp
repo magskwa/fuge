@@ -167,12 +167,12 @@ void FugeMain::createActions()
     actStop = new QAction(tr("&Stop"), this);
     //actOpenData = new QAction(tr("&Open dataset..."), this);
     //actCloseData = new QAction(tr("&Close dataset"), this);
-    actNewFuzzy = new QAction(tr("&New fuzzy system"), this);
+    //actNewFuzzy = new QAction(tr("&New fuzzy system"), this);
     actOpenFuzzy = new QAction(tr("&Open fuzzy system..."), this);
-    actCloseFuzzy = new QAction(tr("&Close fuzzy system"), this);
-    actSaveFuzzy = new QAction(tr("&Save fuzzy system..."), this);
+    //actCloseFuzzy = new QAction(tr("&Close fuzzy system"), this);
+    //actSaveFuzzy = new QAction(tr("&Save fuzzy system..."), this);
     //actEditFuzzy = new QAction(tr("&Edit fuzzy system..."), this);
-    actValidFuzzy = new QAction(tr("&Validate fuzzy system..."), this);
+    //actValidFuzzy = new QAction(tr("&Validate fuzzy system..."), this);
     actEvalFuzzy = new QAction(tr("Ev&aluate fuzzy system..."), this);
     actPredictFuzzy = new QAction(tr("&Predict fuzzy system..."), this);
     //actEditParams = new QAction(tr("&Edit parameters..."), this);
@@ -184,12 +184,12 @@ void FugeMain::createActions()
     actRun->setEnabled(false);
     actStop->setEnabled(false);
     //actRunScript->setEnabled(false);
-    actSaveFuzzy->setEnabled(false);
-    actCloseFuzzy->setEnabled(false);
+    //actSaveFuzzy->setEnabled(false);
+    //actCloseFuzzy->setEnabled(false);
     //actEditFuzzy->setEnabled(false);
     //actCloseData->setEnabled(false);
     //actCloseScript->setEnabled(false);
-    actValidFuzzy->setEnabled(false);
+    //actValidFuzzy->setEnabled(false);
     actEvalFuzzy->setEnabled(false);
     actPredictFuzzy->setEnabled(false);
 
@@ -199,10 +199,10 @@ void FugeMain::createActions()
     connect(actStop, SIGNAL(triggered()), computeThread, SLOT(onStopEvo()));
     //connect(actOpenData, SIGNAL(triggered()), this, SLOT(onActOpenData()));
     //connect(actCloseData, SIGNAL(triggered()), this, SLOT(onActCloseData()));
-    connect(actNewFuzzy, SIGNAL(triggered()), this, SLOT(onActNewFuzzy()));
+    //connect(actNewFuzzy, SIGNAL(triggered()), this, SLOT(onActNewFuzzy()));
     connect(actOpenFuzzy, SIGNAL(triggered()), this, SLOT(onActOpenFuzzy()));
-    connect(actCloseFuzzy, SIGNAL(triggered()), this, SLOT(onActCloseFuzzy()));
-    connect(actSaveFuzzy, SIGNAL(triggered()), this, SLOT(onActSaveFuzzy()));
+    //connect(actCloseFuzzy, SIGNAL(triggered()), this, SLOT(onActCloseFuzzy()));
+    //connect(actSaveFuzzy, SIGNAL(triggered()), this, SLOT(onActSaveFuzzy()));
     connect(actEvalFuzzy, SIGNAL(triggered()), this, SLOT(onActEvalFuzzy()));
     connect(actPredictFuzzy, SIGNAL(triggered()), this, SLOT(onActPredictFuzzy()));
     //connect(actEditParams, SIGNAL(triggered()), this, SLOT(onActEditParams()));
@@ -315,12 +315,12 @@ void FugeMain::onActRun()
         //actCloseData->setEnabled(false);
         //actOpenData->setEnabled(false);
         actOpenFuzzy->setEnabled(false);
-        actNewFuzzy->setEnabled(false);
+        //actNewFuzzy->setEnabled(false);
     }
 
-    this->actSaveFuzzy->setEnabled(true);
+    //this->actSaveFuzzy->setEnabled(true);
     this->actPredictFuzzy->setEnabled(false);
-    this->actValidFuzzy->setEnabled(false);
+    //this->actValidFuzzy->setEnabled(false);
     this->actEvalFuzzy->setEnabled(false);
     //this->actEditFuzzy->setEnabled(false);
     }catch(...)
@@ -389,14 +389,7 @@ void FugeMain::onActCloseData()
     dataLoaded = false;
     actRun->setEnabled(false);
 }
-*/
-/**
-  * NOT IMPLEMENTED YET !!!
-  */
-void FugeMain::onActNewFuzzy()
-{
 
-}
 
 /**
   * Slot called when the user opens a fuzzy system file.
@@ -423,10 +416,10 @@ void FugeMain::onActOpenFuzzy()
         emit openFuzzySystem(fileName);
 
         // TODO: this logic should be in a function.
-        this->actSaveFuzzy->setEnabled(true);
-        this->actCloseFuzzy->setEnabled(true);
+        //this->actSaveFuzzy->setEnabled(true);
+        //this->actCloseFuzzy->setEnabled(true);
         this->actEvalFuzzy->setEnabled(true);
-        this->actValidFuzzy->setEnabled(true);
+        //this->actValidFuzzy->setEnabled(true);
         this->actPredictFuzzy->setEnabled(true);
         //this->actEditFuzzy->setEnabled(true);
     }
@@ -435,6 +428,7 @@ void FugeMain::onActOpenFuzzy()
 /**
   * Slot called when the user closes a fuzzy system file.
   */
+/*
 void FugeMain::onActCloseFuzzy()
 {
     SystemParameters& sysParams = SystemParameters::getInstance();
@@ -456,13 +450,15 @@ void FugeMain::onActCloseFuzzy()
     this->actCloseFuzzy->setEnabled(false);
     //this->actEditFuzzy->setEnabled(false);
     this->actEvalFuzzy->setEnabled(false);
-    this->actValidFuzzy->setEnabled(false);
+    //this->actValidFuzzy->setEnabled(false);
     this->actPredictFuzzy->setEnabled(false);
 }
+*/
 
 /**
   * Slot called when the user saves a fuzzy system file.
   */
+/*
 void FugeMain::onActSaveFuzzy()
 {
     SystemParameters& sysParams = SystemParameters::getInstance();
@@ -480,7 +476,7 @@ void FugeMain::onActSaveFuzzy()
         }
     }
 }
-
+*/
 
 // TODOM : method could be erase
 /**
@@ -576,10 +572,12 @@ void FugeMain::onActPredictFuzzy(bool fromCmd)
 /**
   * Slot called when the user asks for a validation.
   */
+/*
 void FugeMain::onActValidFuzzy()
 {
     this->onActEvalFuzzy(true);
 }
+*/
 
 /**
   * Slot called when the user asks for an evalutation.
@@ -743,7 +741,7 @@ void FugeMain::onComputeFinished()
     isRunning = false;
     //actCloseData->setEnabled(true);
     actOpenFuzzy->setEnabled(true);
-    actNewFuzzy->setEnabled(true);
+    //actNewFuzzy->setEnabled(true);
     //actOpenData->setEnabled(true);
     actStop->setEnabled(false);
 
@@ -780,10 +778,10 @@ void FugeMain::onComputeFinished()
     file.copy(newName);
 
 
-    this->actSaveFuzzy->setEnabled(true);
-    this->actCloseFuzzy->setEnabled(true);
+    //this->actSaveFuzzy->setEnabled(true);
+    //this->actCloseFuzzy->setEnabled(true);
     this->actEvalFuzzy->setEnabled(true);
-    this->actValidFuzzy->setEnabled(true);
+    //this->actValidFuzzy->setEnabled(true);
     this->actPredictFuzzy->setEnabled(true);
     this->actStop->setEnabled(false);
     //this->actEditFuzzy->setEnabled(true);
