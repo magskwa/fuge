@@ -165,29 +165,29 @@ void FugeMain::createActions()
     // All default values can be set on the form files as the default text.
     actRun = new QAction(tr("&Run..."), this);
     actStop = new QAction(tr("&Stop"), this);
-    actOpenData = new QAction(tr("&Open dataset..."), this);
-    actCloseData = new QAction(tr("&Close dataset"), this);
+    //actOpenData = new QAction(tr("&Open dataset..."), this);
+    //actCloseData = new QAction(tr("&Close dataset"), this);
     actNewFuzzy = new QAction(tr("&New fuzzy system"), this);
     actOpenFuzzy = new QAction(tr("&Open fuzzy system..."), this);
     actCloseFuzzy = new QAction(tr("&Close fuzzy system"), this);
     actSaveFuzzy = new QAction(tr("&Save fuzzy system..."), this);
-    actEditFuzzy = new QAction(tr("&Edit fuzzy system..."), this);
+    //actEditFuzzy = new QAction(tr("&Edit fuzzy system..."), this);
     actValidFuzzy = new QAction(tr("&Validate fuzzy system..."), this);
     actEvalFuzzy = new QAction(tr("Ev&aluate fuzzy system..."), this);
     actPredictFuzzy = new QAction(tr("&Predict fuzzy system..."), this);
-    actEditParams = new QAction(tr("&Edit parameters..."), this);
+    //actEditParams = new QAction(tr("&Edit parameters..."), this);
     actOpenScript= new QAction(tr("&Open script..."), this);
     actCloseScript= new QAction(tr("&Close script"), this);
     actRunScript= new QAction(tr("&Run script"), this);
     actQuit = new QAction(tr("&Quit"), this);
-    actAbout = new QAction(tr("&About..."), this);
+    //actAbout = new QAction(tr("&About..."), this);
     actRun->setEnabled(false);
     actStop->setEnabled(false);
     actRunScript->setEnabled(false);
     actSaveFuzzy->setEnabled(false);
     actCloseFuzzy->setEnabled(false);
-    actEditFuzzy->setEnabled(false);
-    actCloseData->setEnabled(false);
+    //actEditFuzzy->setEnabled(false);
+    //actCloseData->setEnabled(false);
     actCloseScript->setEnabled(false);
     actValidFuzzy->setEnabled(false);
     actEvalFuzzy->setEnabled(false);
@@ -197,21 +197,20 @@ void FugeMain::createActions()
     // It's possible to do it by renaming slots (See Qt Documentation)
     connect(actRun, SIGNAL(triggered()), this, SLOT(onActRun()));
     connect(actStop, SIGNAL(triggered()), computeThread, SLOT(onStopEvo()));
-    connect(actOpenData, SIGNAL(triggered()), this, SLOT(onActOpenData()));
-    connect(actCloseData, SIGNAL(triggered()), this, SLOT(onActCloseData()));
+    //connect(actOpenData, SIGNAL(triggered()), this, SLOT(onActOpenData()));
+    //connect(actCloseData, SIGNAL(triggered()), this, SLOT(onActCloseData()));
     connect(actNewFuzzy, SIGNAL(triggered()), this, SLOT(onActNewFuzzy()));
     connect(actOpenFuzzy, SIGNAL(triggered()), this, SLOT(onActOpenFuzzy()));
     connect(actCloseFuzzy, SIGNAL(triggered()), this, SLOT(onActCloseFuzzy()));
     connect(actSaveFuzzy, SIGNAL(triggered()), this, SLOT(onActSaveFuzzy()));
-    connect(actEditFuzzy, SIGNAL(triggered()), this, SLOT(onActEditFuzzy()));
     connect(actEvalFuzzy, SIGNAL(triggered()), this, SLOT(onActEvalFuzzy()));
     connect(actPredictFuzzy, SIGNAL(triggered()), this, SLOT(onActPredictFuzzy()));
-    connect(actEditParams, SIGNAL(triggered()), this, SLOT(onActEditParams()));
+    //connect(actEditParams, SIGNAL(triggered()), this, SLOT(onActEditParams()));
     connect(actOpenScript, SIGNAL(triggered()), this, SLOT(onActOpenScript()));
     connect(actCloseScript, SIGNAL(triggered()), this, SLOT(onActCloseScript()));
     connect(actRunScript, SIGNAL(triggered()), this, SLOT(onActRunScript()));
     connect(actQuit, SIGNAL(triggered()), this, SLOT(onActQuit()));
-    connect(actAbout, SIGNAL(triggered()), this, SLOT(onActAbout()));
+    //connect(actAbout, SIGNAL(triggered()), this, SLOT(onActAbout()));
 }
 
 /**
@@ -313,8 +312,8 @@ void FugeMain::onActRun()
 
         // TODO: this logic should be implemented in a method.
         actStop->setEnabled(true);
-        actCloseData->setEnabled(false);
-        actOpenData->setEnabled(false);
+        //actCloseData->setEnabled(false);
+        //actOpenData->setEnabled(false);
         actOpenFuzzy->setEnabled(false);
         actNewFuzzy->setEnabled(false);
     }
@@ -323,7 +322,7 @@ void FugeMain::onActRun()
     this->actPredictFuzzy->setEnabled(false);
     this->actValidFuzzy->setEnabled(false);
     this->actEvalFuzzy->setEnabled(false);
-    this->actEditFuzzy->setEnabled(false);
+    //this->actEditFuzzy->setEnabled(false);
     }catch(...)
     {
         qCritical() << "Exception in FugeMain::onActRun";
@@ -342,9 +341,10 @@ void FugeMain::onActQuit()
 /**
   * Slot called when the user opens a dataset.
   */
+/*
 void FugeMain::onActOpenData()
 {
-    /*
+
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open dataset"), "../../../../datasets", "*.csv");
     if (fileName != NULL) {
         // Clear previous loaded data
@@ -376,19 +376,20 @@ void FugeMain::onActOpenData()
         }
         actCloseData->setEnabled(true);
     }
-    */
-}
 
+}
+*/
 /**
   * Slot called when the user closes a dataset.
   */
+/*
 void FugeMain::onActCloseData()
 {
     listFile->clear();
     dataLoaded = false;
     actRun->setEnabled(false);
 }
-
+*/
 /**
   * NOT IMPLEMENTED YET !!!
   */
@@ -427,7 +428,7 @@ void FugeMain::onActOpenFuzzy()
         this->actEvalFuzzy->setEnabled(true);
         this->actValidFuzzy->setEnabled(true);
         this->actPredictFuzzy->setEnabled(true);
-        this->actEditFuzzy->setEnabled(true);
+        //this->actEditFuzzy->setEnabled(true);
     }
 }
 
@@ -447,13 +448,13 @@ void FugeMain::onActCloseFuzzy()
     if (tempFile.exists())
          tempFile.remove();
     // Clear previous loaded data
-    if (dataLoaded)
-        this->onActCloseData();
+    //if (dataLoaded)
+        //this->onActCloseData();
 
     // TODO: This logic should be in a function.
     this->actSaveFuzzy->setEnabled(false);
     this->actCloseFuzzy->setEnabled(false);
-    this->actEditFuzzy->setEnabled(false);
+    //this->actEditFuzzy->setEnabled(false);
     this->actEvalFuzzy->setEnabled(false);
     this->actValidFuzzy->setEnabled(false);
     this->actPredictFuzzy->setEnabled(false);
@@ -485,6 +486,7 @@ void FugeMain::onActSaveFuzzy()
 /**
   * Slot called when the user edits a fuzzy system file.
   */
+/*
 void FugeMain::onActEditFuzzy()
 {
     SystemParameters& sysParams = SystemParameters::getInstance();
@@ -501,6 +503,7 @@ void FugeMain::onActEditFuzzy()
         currentOpennedSystem = QString(sysParams.getSavePath()+"temp/currentBest_") +
                 QString::number(QCoreApplication::applicationPid()) + QString(".ffs");
 }
+*/
 
 /**
   * Slot called when the user asks for a prediction.
@@ -663,6 +666,7 @@ void FugeMain::onActEvalFuzzy(bool doValid, bool fromCmd)
 /**
   * Slot called when the user edits the parameters.
   */
+/*
 void FugeMain::onActEditParams()
 {
     scriptLoaded = false;
@@ -674,6 +678,7 @@ void FugeMain::onActEditParams()
         }
     }
 }
+*/
 
 /**
   * Slot called when the user opens a script file.
@@ -719,13 +724,6 @@ void FugeMain::onActRunScript()
 }
 
 /**
-  * Slot called when the user accesses the About dialog.
-  */
-void FugeMain::onActAbout()
-{
-}
-
-/**
   * Slot called by the computational thread when an evolution run is finished.
   */
 void FugeMain::onComputeFinished()
@@ -737,10 +735,10 @@ void FugeMain::onComputeFinished()
     computeThread = 0;
 
     isRunning = false;
-    actCloseData->setEnabled(true);
+    //actCloseData->setEnabled(true);
     actOpenFuzzy->setEnabled(true);
     actNewFuzzy->setEnabled(true);
-    actOpenData->setEnabled(true);
+    //actOpenData->setEnabled(true);
     actStop->setEnabled(false);
 
     emit closeStats();
@@ -782,7 +780,7 @@ void FugeMain::onComputeFinished()
     this->actValidFuzzy->setEnabled(true);
     this->actPredictFuzzy->setEnabled(true);
     this->actStop->setEnabled(false);
-    this->actEditFuzzy->setEnabled(true);
+    //this->actEditFuzzy->setEnabled(true);
 
     // Allow the next script execution
     scriptSema.release();
@@ -797,12 +795,6 @@ void FugeMain::onScriptFinished()
     QCoreApplication::quit();
 }
 
-/**
-  * Slot called when the user accesses the Help dialog.
-  */
-void FugeMain::onActHelp()
-{
-}
 
 void FugeMain::changeEvent(QEvent *e)
 {

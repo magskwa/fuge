@@ -88,29 +88,28 @@ private:
     ScriptManager* sMan;
     QAction* actRun;
     QAction* actStop;
-    QAction* actOpenData;
-    QAction* actCloseData;
+    //QAction* actOpenData;
+    //QAction* actCloseData;
     QAction* actNewFuzzy;
     QAction* actOpenFuzzy;
     QAction* actCloseFuzzy;
     QAction* actSaveFuzzy;
-    QAction* actEditFuzzy;
     QAction* actValidFuzzy;
     QAction* actEvalFuzzy;
     QAction* actPredictFuzzy;
-    QAction* actEditParams;
+    //QAction* actEditParams;
     QAction* actOpenScript;
     QAction* actCloseScript;
     QAction* actRunScript;
     QAction* actQuit;
-    QAction* actAbout;
-    QAction* actHelp;
-    QMenu* fileMenu;
-    QMenu* dataMenu;
-    QMenu* fuzzyMenu;
-    QMenu* paramsMenu;
-    QMenu* scriptMenu;
-    QMenu* helpMenu;
+    //QAction* actAbout;
+    //QAction* actHelp;
+    //QMenu* fileMenu;
+    //QMenu* dataMenu;
+    //QMenu* fuzzyMenu;
+    //QMenu* paramsMenu;
+    //QMenu* scriptMenu;
+    //QMenu* helpMenu;
 
     QString currentOpennedSystem;
     void setDefaultSysParams();
@@ -128,8 +127,8 @@ public slots:
 private slots:
     void onActRun();
     void onActQuit();
-    void onActOpenData();
-    void onActCloseData();
+    //void onActOpenData();
+    //void onActCloseData();
     void onActNewFuzzy();
     void onActOpenFuzzy();
     void onActCloseFuzzy();
@@ -137,13 +136,13 @@ private slots:
     void onActEvalFuzzy(bool doValid = false, bool fromCmd = false);
     void onActPredictFuzzy(bool fromCmd = false);
     void onActSaveFuzzy();
-    void onActEditFuzzy();
-    void onActEditParams();
+    //void onActEditFuzzy();
+    //void onActEditParams();
     void onActOpenScript();
     void onActCloseScript();
     void onActRunScript();
-    void onActAbout();
-    void onActHelp();
+    //void onActAbout();
+    //void onActHelp();
     //void closeEvent(QCloseEvent*);
 
 signals:
