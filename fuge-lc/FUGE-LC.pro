@@ -11,7 +11,7 @@
 TARGET = FUGE-LC
 TEMPLATE = app
 
-QT += core widgets xml
+QT += core xml
 
 include(libGGA/libGGA.pri)
 include(fuzzy/Fuzzy.pri)

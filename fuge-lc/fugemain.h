@@ -75,9 +75,6 @@ public:
     static QList<QStringList>* listFile;
     static FuzzySystem* getNewFuzzySystem(QList<QStringList>* listFile);
 
-protected:
-    virtual void changeEvent(QEvent *e);
-
 private:
     void createActions();
     ComputeThread* computeThread;
@@ -89,7 +86,6 @@ private:
     QAction* actRun;
     QAction* actEvalFuzzy;
     QAction* actPredictFuzzy;
-    QAction* actQuit;
 
     QString currentOpennedSystem;
     void setDefaultSysParams();
@@ -106,7 +102,6 @@ public slots:
 
 private slots:
     void onActRun();
-    void onActQuit();
     void onActEvalFuzzy(bool doValid = false, bool fromCmd = false);
     void onActPredictFuzzy(bool fromCmd = false);
 

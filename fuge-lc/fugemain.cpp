@@ -110,8 +110,8 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
 
         ComputeThread::bestFSystem = fSystemVars;
 
-        connect(this, SIGNAL(openFuzzySystem(QString)), fSystemVars, SLOT(loadFromFile(QString)));
-        connect(this, SIGNAL(openFuzzySystem(QString)), fSystemRules, SLOT(loadFromFile(QString)));
+        //connect(this, SIGNAL(openFuzzySystem(QString)), fSystemVars, SLOT(loadFromFile(QString)));
+        //connect(this, SIGNAL(openFuzzySystem(QString)), fSystemRules, SLOT(loadFromFile(QString)));
         currentOpennedSystem = fuzzyFile;
 
         emit openFuzzySystem(fuzzyFile);
@@ -157,7 +157,6 @@ void FugeMain::createActions()
     actRun = new QAction(tr("&Run..."), this);
     actEvalFuzzy = new QAction(tr("Ev&aluate fuzzy system..."), this);
     actPredictFuzzy = new QAction(tr("&Predict fuzzy system..."), this);
-    actQuit = new QAction(tr("&Quit"), this);
     actRun->setEnabled(false);
     actEvalFuzzy->setEnabled(false);
     actPredictFuzzy->setEnabled(false);
@@ -167,7 +166,6 @@ void FugeMain::createActions()
     connect(actRun, SIGNAL(triggered()), this, SLOT(onActRun()));
     connect(actEvalFuzzy, SIGNAL(triggered()), this, SLOT(onActEvalFuzzy()));
     connect(actPredictFuzzy, SIGNAL(triggered()), this, SLOT(onActPredictFuzzy()));
-    connect(actQuit, SIGNAL(triggered()), this, SLOT(onActQuit()));
 }
 
 /**
@@ -275,13 +273,6 @@ void FugeMain::onActRun()
         qCritical() << "Exception in FugeMain::onActRun";
         scriptSema.release();
     }
-}
-
-/**
-  * Slot called when the user quits the application.
-  */
-void FugeMain::onActQuit()
-{
 }
 
 /**
@@ -496,8 +487,3 @@ void FugeMain::onScriptFinished()
     QCoreApplication::quit();
 }
 
-
-void FugeMain::changeEvent(QEvent *e)
-{
-
-}
