@@ -110,8 +110,8 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
 
         ComputeThread::bestFSystem = fSystemVars;
 
-        //connect(this, SIGNAL(openFuzzySystem(QString)), fSystemVars, SLOT(loadFromFile(QString)));
-        //connect(this, SIGNAL(openFuzzySystem(QString)), fSystemRules, SLOT(loadFromFile(QString)));
+        connect(this, SIGNAL(openFuzzySystem(QString)), fSystemVars, SLOT(loadFromFile(QString)));
+        connect(this, SIGNAL(openFuzzySystem(QString)), fSystemRules, SLOT(loadFromFile(QString)));
         currentOpennedSystem = fuzzyFile;
 
         emit openFuzzySystem(fuzzyFile);
