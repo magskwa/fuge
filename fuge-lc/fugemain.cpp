@@ -25,7 +25,7 @@
   * @brief This class implements the FUGE-LC main window.
   */
 #include "fugemain.h"
-#include "QtGui/qaction.h"
+#include "QAction.h"
 
 
 QFile *fitLogFile;

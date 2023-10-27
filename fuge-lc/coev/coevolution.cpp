@@ -36,7 +36,7 @@ int counterCoops = 0;
   *
   * @param ComputeThread::fSystem Pointer to an existing fuzzy system
   */
-CoEvolution::CoEvolution(FuzzySystem *fSystem, QMutex *leftLock, QMutex *rightLock, Population *left, Population *right, quint32 generationCount, qreal crossoverProbability, qreal mutationProbability, qreal mutationPerBitProbability, quint32 eliteSize, quint32 cooperatorsCount, QObject *parent) : EvolutionEngine(left, generationCount, crossoverProbability, mutationProbability, mutationPerBitProbability), QThread(parent), fSystem(fSystem), leftLock(leftLock), rightLock(rightLock), eliteSize(eliteSize), left(left), right(right), generationCount(generationCount), cooperatorsCount(cooperatorsCount)
+CoEvolution::CoEvolution(FuzzySystem *fSystem, QMutex *access, QSemaphore *standby, Population *left, Population *right, quint32 generationCount, qreal crossoverProbability, qreal mutationProbability, qreal mutationPerBitProbability, quint32 eliteSize, quint32 cooperatorsCount, QObject *parent) : EvolutionEngine(left, generationCount, crossoverProbability, mutationProbability, mutationPerBitProbability), QThread(parent), fSystem(fSystem), access(access), standby(standby), eliteSize(eliteSize), left(left), right(right), generationCount(generationCount), cooperatorsCount(cooperatorsCount)
 {
     isFirst = true;
     needToSave = false;
@@ -58,7 +58,7 @@ void CoEvolution::run(){
     qDebug() << "RUN : " << left->getName() << " : left_getsize : " << left->getSize();
 
     //TODO set generation values trough the interface.
-    startEvolution(leftLock,rightLock, generationCount,
+    startEvolution(access,standby, generationCount,
                    getEntitySelectors().at(0),eliteSize,
                    getEntitySelectors().at(1),left->getSize()-eliteSize,
                    getMutationMethods().at(0),getCrossoverMethods().at(0), cooperatorsCount);

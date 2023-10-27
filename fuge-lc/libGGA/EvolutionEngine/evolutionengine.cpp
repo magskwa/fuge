@@ -2,7 +2,7 @@
 #include "../computethread.h"
 
 QMutex * EvolutionEngine::critMutex = new QMutex();
-
+int EvolutionEngine::state = 0;
 
 EvolutionEngine::EvolutionEngine(Population *population, quint32 generationCount, qreal crossoverProbability, qreal mutationProbability, qreal mutationPerBitProbability) :
     population(population), generationCount(generationCount), crossoverProbability(crossoverProbability), mutationProbability(mutationProbability), mutationPerBitProbability(mutationPerBitProbability)
@@ -15,7 +15,27 @@ EvolutionEngine::EvolutionEngine(Population *population, quint32 generationCount
     mutateMethodList.push_back(new Toggling());
 }
 
-void EvolutionEngine::startEvolution(QMutex *leftLock, QMutex *rightLock, quint32 generationCount, EntitySelection *eliteSelection, quint32 eliteSelectionCount, EntitySelection *individualsSelection, quint32 individualsSelectionCount, Mutate *mutateMethod, Crossover *crossoverMethod, quint32 cooperatorsCount)
+void EvolutionEngine::waitOtherThread(QMutex *access, QSemaphore *semaphore)
+{
+    qDebug() << "Arrived in waiting function";
+    access->lock();
+    if (state == 0)
+    {
+        state = 1;
+        access->unlock();
+        qDebug() << "blocked in waiting function";
+        semaphore->acquire();
+    }
+    else
+    {
+        state = 0;
+        semaphore->release();
+        access->unlock();
+    }
+    qDebug() << "End of waiting function";
+}
+
+void EvolutionEngine::startEvolution(QMutex *access, QSemaphore *standby, quint32 generationCount, EntitySelection *eliteSelection, quint32 eliteSelectionCount, EntitySelection *individualsSelection, quint32 individualsSelectionCount, Mutate *mutateMethod, Crossover *crossoverMethod, quint32 cooperatorsCount)
 {
     // TODO: crashes here when run under Qt 5 (but not under Qt 4) because leftLock and rightLock are invalid
 
@@ -24,15 +44,13 @@ void EvolutionEngine::startEvolution(QMutex *leftLock, QMutex *rightLock, quint3
     this->mutateMethod = mutateMethod;
     this->crossoverMethod = crossoverMethod;
 
-    rightLock->lock();
     selectElites();
     population->setRepresentativesCopy(selectedEntitiesCopy, cooperatorsCount);
 
     qDebug() << population->getName() << " Before join";
+
     // JOIN both evolution
-    leftLock->unlock();
-    rightLock->lock();
-    leftLock->unlock();
+    waitOtherThread(access, standby);
 
     qDebug() << population->getName() << " AFTER join";
     if(!evaluatePopulation(population, 0))
@@ -62,13 +80,11 @@ void EvolutionEngine::startEvolution(QMutex *leftLock, QMutex *rightLock, quint3
 
 
     }
-    rightLock->lock();
     qDebug() << population->getName() << " Before LAST join";
     // Join and leave
-    leftLock->unlock();
-    rightLock->lock();
+    waitOtherThread(access, standby);
+
     qDebug() << population->getName() << " AFTER LAST join";
-    leftLock->unlock();
 }
 
 void EvolutionEngine::setEntitySelector(EntitySelection *eliteSelection, quint32 eliteSelectionCount, EntitySelection *entitySelection, quint32 selectionCount)

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <QThread>
+#include <QSemaphore>
 
 #include "population.h"
 #include "crossover.h"
@@ -20,8 +21,8 @@ class EvolutionEngine
 public:
     EvolutionEngine(Population *population, quint32 generationCount, qreal crossoverProbability, qreal mutationProbability, qreal mutationPerBitProbability);
     virtual bool evaluatePopulation(Population* population, quint32 generation) = 0;
-    void startEvolution(QMutex *leftLock,
-                                            QMutex *rightLock,
+    void startEvolution(QMutex *access,
+                                            QSemaphore *standby,
                                             quint32 generationCount,
                                             EntitySelection *eliteSelection,
                                             quint32 eliteSelectionCount,
@@ -56,10 +57,13 @@ private:
     void crossover();
     void mutate();
 
+    void waitOtherThread(QMutex *access, QSemaphore *semaphore);
+
     Population *population;
     qreal crossoverProbability;
     qreal mutationProbability;
     qreal mutationPerBitProbability;
+    static int state;
 
     EntitySelection *eliteSelection;
     quint32 eliteSelectionCount;

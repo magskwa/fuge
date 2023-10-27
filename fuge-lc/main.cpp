@@ -94,9 +94,9 @@ QStringList fakeCmdLine()
     argList.append("/Users/mer/Documents/fuge/build-FUGE-LC-Qt_macoOS_v4-Debug/FUGE-LC.app/Contents/MacOS/FUGE-LC");
     //argList.append("--evaluate");
     argList.append("-d");
-    argList.append("/Users/mer/Documents/projet/dataset/CancerDiag2_headers.csv");
+    argList.append("/Users/mer/Documents/projet/dataset/arrhythmia_binary_small_sorted.csv");
     argList.append("-s");
-    argList.append("/Users/mer/Documents/projet/dataset/CancerRef.fs");
+    argList.append("/Users/mer/Documents/projet/dataset/test.fs");
     //argList.append("-f");
     //argList.append("/Users/mer/Desktop/script_result/fuzzySystems/");
     argList.append("-g");
@@ -236,10 +236,12 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
 
+    /*
     qDebug() << "argc: " << argc;
     for(int i=0; i<argc; i++){
         qDebug() << "argv[" << i << "]: " << argv[i];
     }
+    */
 
 
     if (parseArguments(a.arguments())) {

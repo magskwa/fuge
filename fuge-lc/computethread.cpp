@@ -108,11 +108,11 @@ void ComputeThread::run()
         Population *popVar = new Population("MEMBERSHIPS", sysParams->getPopSizePop1(), vars.genotypeSize);
         Population *popRules = new Population("RULES", sysParams->getPopSizePop2(), rules.genotypeSize);
 
-        QMutex *leftLock = new QMutex();
-        QMutex *rightLock = new QMutex();
+        QMutex *access = new QMutex();
+        QSemaphore *standby = new QSemaphore(0);
 
-        leftEvolution = new CoEvolution(fSystemLeft, leftLock, rightLock, popVar, popRules, sysParams->getMaxGenPop1(),  sysParams->getCxProbPop1(),sysParams->getMutFlipIndPop1(), sysParams->getMutFlipBitPop1(),sysParams->getEliteSizePop1(), sysParams->getNbCooperators());
-        rightEvolution = new CoEvolution(fSystemRight, rightLock, leftLock, popRules, popVar, sysParams->getMaxGenPop1(), sysParams->getCxProbPop2(), sysParams->getMutFlipIndPop2(), sysParams->getMutFlipBitPop2(),sysParams->getEliteSizePop1(), sysParams->getNbCooperators());
+        leftEvolution = new CoEvolution(fSystemLeft, access, standby, popVar, popRules, sysParams->getMaxGenPop1(),  sysParams->getCxProbPop1(),sysParams->getMutFlipIndPop1(), sysParams->getMutFlipBitPop1(),sysParams->getEliteSizePop1(), sysParams->getNbCooperators());
+        rightEvolution = new CoEvolution(fSystemRight, access, standby, popRules, popVar, sysParams->getMaxGenPop1(), sysParams->getCxProbPop2(), sysParams->getMutFlipIndPop2(), sysParams->getMutFlipBitPop2(),sysParams->getEliteSizePop1(), sysParams->getNbCooperators());
 
         connect(leftEvolution,SIGNAL(fitnessThreshReached()), this, SLOT(onStopEvo()));
         connect(rightEvolution,SIGNAL(fitnessThreshReached()), this, SLOT(onStopEvo()));
@@ -134,8 +134,8 @@ void ComputeThread::run()
 //        else if(bestFSystem != fSystemRight && fSystemRight != 0)
 //            delete fSystemRight;
 
-        delete leftLock;
-        delete rightLock;
+        delete access;
+        delete standby;
         delete popVar;
         delete popRules;
         delete leftEvolution;

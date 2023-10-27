@@ -38,6 +38,7 @@
 #include <QString>
 #include <QMutex>
 #include <QTime>
+#include <QSemaphore>
 
 #include "coevolution.h"
 #include "fuzzysystem.h"

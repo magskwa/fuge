@@ -58,7 +58,7 @@ class CoEvolution : public QThread, public EvolutionEngine {
 
     Q_OBJECT
 public:
-    CoEvolution(FuzzySystem *fSystem, QMutex *leftLock, QMutex *rightLock, Population* left, Population* right, quint32 generationCount, qreal crossoverProbability, qreal mutationProbability, qreal mutationPerBitProbability, quint32 eliteSize, quint32 cooperatorsCount, QObject *parent = 0);
+    CoEvolution(FuzzySystem *fSystem, QMutex *access, QSemaphore *standby, Population* left, Population* right, quint32 generationCount, qreal crossoverProbability, qreal mutationProbability, qreal mutationPerBitProbability, quint32 eliteSize, quint32 cooperatorsCount, QObject *parent = 0);
 
     ~CoEvolution();
 
@@ -77,8 +77,8 @@ protected:
 
 private:
     FuzzySystem *fSystem;
-    QMutex *leftLock;
-    QMutex *rightLock;
+    QMutex *access;
+    QSemaphore *standby;
     Population *left;
     Population *right;
     quint32 generationCount;
