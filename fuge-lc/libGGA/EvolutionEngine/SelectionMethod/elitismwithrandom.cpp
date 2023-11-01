@@ -1,4 +1,5 @@
 #include "elitismwithrandom.h"
+#include <QDebug>
 
 ElitismWithRandom::ElitismWithRandom():
     EntitySelection()
@@ -13,6 +14,7 @@ vector<PopEntity *> ElitismWithRandom::selectEntities(quint32 quantity, vector<P
     sort(entityList.begin(), entityList.end(), entityLesserThan);
 
     for(quint32 i=entityList.size()-1; i > entityList.size()-quantity; i--){
+        qDebug() << "i = " << i;
         selectedEntities.push_back(entityList.at(i));
     }
 

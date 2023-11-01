@@ -297,6 +297,7 @@ void ScriptManager::setParams(QString experimentName,
 void ScriptManager::readScript()
 {
     QFile file(d_imp->fileName);
+    qDebug() << "script file name = " << d_imp->fileName;
     if (! file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QMessageBox::critical(0, "Error", "Could not open script file!");

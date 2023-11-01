@@ -36,12 +36,14 @@
 #include <QMutexLocker>
 #include <QMutex>
 #include <QTime>
-#include <QLinkedList>
+#include <QList>
 #include <QThread>
 #include <memory>
+#include <QRandomGenerator>
+
 
 using namespace std;
-class RandomGenerator : public QThread
+class RandomGenerator : QThread
 {
     Q_OBJECT
 public:
@@ -111,7 +113,7 @@ protected:
 private:
     //static auto_ptr<RandomGenerator> randomGenerator;
     static RandomGenerator* randomGenerator;
-
+    QRandomGenerator *qrandGenerator;
     static const qreal RANDMAX_PLUSONE;
     static QMutex mutex;
 };

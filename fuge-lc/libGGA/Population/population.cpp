@@ -125,6 +125,7 @@ PopEntity *Population::getEntityAt(quint32 pos)
 
 vector<PopEntity *> Population::getSomeEntityCopy(EntitySelection *entitySelection, quint32 count)
 {
+    qDebug() << "getSomeEntityCopy start";
     vector<PopEntity *>::iterator it;
     vector<PopEntity *> temp;
     vector<PopEntity *> selected = entitySelection->selectEntities(count, entityList);
@@ -132,6 +133,7 @@ vector<PopEntity *> Population::getSomeEntityCopy(EntitySelection *entitySelecti
     for(it=selected.begin(); it!=selected.end(); it++){
         temp.push_back(new PopEntity(*it));
     }
+    qDebug() << "getSomeEntityCopy end";
     return temp;
 }
 

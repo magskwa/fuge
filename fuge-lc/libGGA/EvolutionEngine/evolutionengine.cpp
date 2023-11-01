@@ -38,7 +38,6 @@ void EvolutionEngine::waitOtherThread(QMutex *access, QSemaphore *semaphore)
 void EvolutionEngine::startEvolution(QMutex *access, QSemaphore *standby, quint32 generationCount, EntitySelection *eliteSelection, quint32 eliteSelectionCount, EntitySelection *individualsSelection, quint32 individualsSelectionCount, Mutate *mutateMethod, Crossover *crossoverMethod, quint32 cooperatorsCount)
 {
     // TODO: crashes here when run under Qt 5 (but not under Qt 4) because leftLock and rightLock are invalid
-
     setEntitySelector(eliteSelection,eliteSelectionCount,individualsSelection,individualsSelectionCount);
 
     this->mutateMethod = mutateMethod;
@@ -53,8 +52,10 @@ void EvolutionEngine::startEvolution(QMutex *access, QSemaphore *standby, quint3
     waitOtherThread(access, standby);
 
     qDebug() << population->getName() << " AFTER join";
-    if(!evaluatePopulation(population, 0))
+    if(!evaluatePopulation(population, 0)){
+        qDebug() << "Here here is the problem---------------";
         return;
+    }
 
     for(quint32 i = 1; i <= generationCount; i++)
     {
@@ -137,10 +138,12 @@ void EvolutionEngine::initializePopulation()
 }
 void EvolutionEngine::selectElites()
 {
+    qDebug() << "selected elite start";
 //    for(int i = 0; i < selectedEntitiesCopy.size(); i++)
 //        delete selectedEntitiesCopy[i];
     selectedEntitiesCopy.clear();
     selectedEntitiesCopy = population->getSomeEntityCopy(eliteSelection,eliteSelectionCount);
+    qDebug() << "selected elite end";
 
 }
 

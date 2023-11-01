@@ -233,8 +233,20 @@ bool parseArguments(QStringList args)
   */
 int main(int argc, char *argv[])
 {
+    int nbArgument = 7;
+    char** arglist = new char*[nbArgument];
+    arglist[0] = "/Users/mer/Documents/fuge/build-FUGE-LC-Qt_macoOS_v4-Debug/FUGE-LC.app/Contents/MacOS/FUGE-LC";
+    arglist[1] = "-d";
+    arglist[2] = datasetFile.toLatin1().data();
+    arglist[3] = "-s";
+    arglist[4] = scriptFile.toLatin1().data();
+    arglist[5] = "-g";
+    arglist[6] = "no";
 
-    QApplication a(argc, argv);
+    QApplication a(nbArgument, arglist);
+
+
+    //QApplication a(argc, argv);
 
     /*
     qDebug() << "argc: " << argc;
@@ -243,11 +255,9 @@ int main(int argc, char *argv[])
     }
     */
 
+    //if (parseArguments(a.arguments())) {
 
-    if (parseArguments(a.arguments())) {
-
-    //if(parseArguments(fakeCmdLine())){
-
+    if(parseArguments(fakeCmdLine())){
         FugeMain w;
 
         // Run automatically from command line if needed

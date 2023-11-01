@@ -37,8 +37,9 @@ FugeMain::FugeMain()
     : fSystemRules(0), fSystemVars(0)
 {
     // Initialise the random generator
-    QTime time;
-    qsrand(QDateTime::currentDateTime().toTime_t());
+    // get instance of randomGenerator and set seed
+    RandomGenerator* randomGenerator = RandomGenerator::getGeneratorInstance();
+    randomGenerator->resetSeed();
 
     fuzzyLoaded = false;
     dataLoaded = false;
@@ -289,57 +290,55 @@ void FugeMain::onActPredictFuzzy(bool fromCmd)
         fileName = sysParams.getDatasetName();
     }
 
-    if (fileName != NULL) {
-        // Clear previous loaded data
-        if (dataLoaded)
-            listFile->clear();
-        QFile file(fileName);
-        file.open(QIODevice::ReadOnly);
-        QTextStream csvFile(&file);
-        QString line;
-        QStringList list;
+    // Clear previous loaded data
+    if (dataLoaded)
+        listFile->clear();
+    QFile file(fileName);
+    file.open(QIODevice::ReadOnly);
+    QTextStream csvFile(&file);
+    QString line;
+    QStringList list;
 
-        // Read the csv file and store info in a double dimension list.
-        while (!csvFile.atEnd()) {
-            line = csvFile.readLine();
-            list = line.split(';');
-            listFile->append(list);
-        }
-        ComputeThread::bestFSystem->loadData(listFile);
-        dataLoaded = true;
+    // Read the csv file and store info in a double dimension list.
+    while (!csvFile.atEnd()) {
+        line = csvFile.readLine();
+        list = line.split(';');
+        listFile->append(list);
+    }
+    ComputeThread::bestFSystem->loadData(listFile);
+    dataLoaded = true;
 
-        file.close();
+    file.close();
 
-        int nbOutVars = sysParams.getNbOutVars();
+    int nbOutVars = sysParams.getNbOutVars();
 
-        QVector<float> computedResults;
-        QVector<float> reverseComputedResults;
-        QVector<float> predictedResults;
+    QVector<float> computedResults;
+    QVector<float> reverseComputedResults;
+    QVector<float> predictedResults;
 
-        computedResults = ComputeThread::bestFSystem->doEvaluateFitness();
+    computedResults = ComputeThread::bestFSystem->doEvaluateFitness();
 
-        // Reorder the results in order to simplify their display by EvalPlot
-        if(nbOutVars > 1) {
-            reverseComputedResults.resize(computedResults.size());
-            for (int i = 0; i <  nbOutVars; i++) {
-                for (int k = 0; k < listFile->size()-1; k++) {
-                    reverseComputedResults.replace(i*(listFile->size()-1) + k, computedResults.at(k*nbOutVars+i));
-                }
-            }
-        }
-        else {
-            reverseComputedResults.resize(computedResults.size());
+    // Reorder the results in order to simplify their display by EvalPlot
+    if(nbOutVars > 1) {
+        reverseComputedResults.resize(computedResults.size());
+        for (int i = 0; i <  nbOutVars; i++) {
             for (int k = 0; k < listFile->size()-1; k++) {
-                reverseComputedResults.replace(k, computedResults.at(k));
+                reverseComputedResults.replace(i*(listFile->size()-1) + k, computedResults.at(k*nbOutVars+i));
             }
         }
-
-
-        predictedResults.resize(reverseComputedResults.size());
-        // Compute the predicted results by applying the threshold
-        for (int i = 0; i < reverseComputedResults.size(); i++) {
-            predictedResults.replace(i, ComputeThread::bestFSystem->threshold(i / (reverseComputedResults.size()/nbOutVars), reverseComputedResults.at(i)));
+    }
+    else {
+        reverseComputedResults.resize(computedResults.size());
+        for (int k = 0; k < listFile->size()-1; k++) {
+            reverseComputedResults.replace(k, computedResults.at(k));
         }
+    }
+
+
+    predictedResults.resize(reverseComputedResults.size());
+    // Compute the predicted results by applying the threshold
+    for (int i = 0; i < reverseComputedResults.size(); i++) {
+        predictedResults.replace(i, ComputeThread::bestFSystem->threshold(i / (reverseComputedResults.size()/nbOutVars), reverseComputedResults.at(i)));
     }
 }
 
@@ -463,7 +462,8 @@ void FugeMain::onComputeFinished()
         logsDir.mkdir(sysParams.getSavePath()+"fuzzySystems");
     }
 
-    int randomNumber = qrand();
+    RandomGenerator* randomGenerator = RandomGenerator::getGeneratorInstance();
+    int randomNumber = randomGenerator->random(0, 4000000000);
     newNameStream << sysParams.getSavePath() +"fuzzySystems/" << sysParams.getExperimentName() << "_" << time.currentTime().toString() << "." << randomNumber << "Gen" << sysParams.getMaxGenPop1()
     << "_" << "Pop" << stats.getSizePop1() << "_" << "Rules" << QString::number(sysParams.getNbRules()) << "_" << "Elt" << QString::number(sysParams.getEliteSizePop1())
     << "_" << "CX" << QString::number(sysParams.getCxProbPop1()) << "_" << "MutI" << sysParams.getMutFlipIndPop1() << "_" << "MutB" << sysParams.getMutFlipBitPop1()

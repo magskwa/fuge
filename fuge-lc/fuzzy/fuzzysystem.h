@@ -45,6 +45,7 @@
 #include <QDebug>
 #include <QMutex>
 #include <QMutexLocker>
+#include <algorithm>
 
 #include "fuzzyset.h"
 #include "systemparameters.h"
@@ -220,6 +221,12 @@ private:
         float sumDistBelow; /* used to compute MDM */
         float sumDistAbove; /* used to compute MDM */
     } fitnessStruct;
+
+    struct compareQVector {
+        bool operator()(float a, float b) const {
+            return a > b;
+        }
+    };
 
 public slots:
     void saveToFile(QString fileName, float fitness);

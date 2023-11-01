@@ -465,6 +465,8 @@ void FuzzySystem::updateSystemDescription()
     }
 }
 
+
+
 /**
   * Create the memberships functions contained in a membership functions genome.
   *
@@ -490,7 +492,7 @@ void FuzzySystem::loadMembershipsGenome(FuzzyMembershipsGenome* membGen)
             posVector.append(position);
         }
         // Sort the vector
-        qSort(posVector);
+        std::sort(posVector.begin(), posVector.end(), compareQVector());
         // Add the sets to the variable
         for (int l = 0; l < posVector.size(); l++) {
             inVarArray[i]->getSet(l)->setPosition(posVector.at(l)+valMin);
@@ -509,7 +511,7 @@ void FuzzySystem::loadMembershipsGenome(FuzzyMembershipsGenome* membGen)
             posVector.append(position);
         }
         // Sort the vector
-        qSort(posVector);
+        std::sort(posVector.begin(), posVector.end(), compareQVector());
         // Add the sets to the variable
         for (int l = 0; l < posVector.size(); l++) {
             outVarArray[i]->getSet(l)->setPosition(posVector.at(l)+valMin);
@@ -519,6 +521,8 @@ void FuzzySystem::loadMembershipsGenome(FuzzyMembershipsGenome* membGen)
 
     membershipsLoaded = true;
 }
+
+
 
 float FuzzySystem::threshold(int outVar, float value)
 {
