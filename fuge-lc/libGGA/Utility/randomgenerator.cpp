@@ -32,7 +32,7 @@
 
 #include "randomgenerator.h"
 #include <cstdlib>
-QMutex RandomGenerator::mutex;
+//QMutex RandomGenerator::mutex;
 RandomGenerator* RandomGenerator::randomGenerator = NULL;
 
 
@@ -43,12 +43,12 @@ const qreal RandomGenerator::RANDMAX_PLUSONE = (qreal)RAND_MAX+1;
 RandomGenerator::RandomGenerator() :
     QThread()
 {
-    resetSeed();
+    //resetSeed();
 }
 
 RandomGenerator *RandomGenerator::getGeneratorInstance(){
     //Thread safety, automatically realeased at the end of the function.
-    QMutexLocker locker(&RandomGenerator::mutex);
+    //QMutexLocker locker(&RandomGenerator::mutex);
 
     if(randomGenerator == NULL)
         randomGenerator = new RandomGenerator();
@@ -57,29 +57,28 @@ RandomGenerator *RandomGenerator::getGeneratorInstance(){
 }
 
 qint32 RandomGenerator::random(qint32 min, qint32 max){
-    if(min > max){
-        return (qrand() / RANDMAX_PLUSONE) * (min-max+1);
-    }else{
-        return (qrand() / RANDMAX_PLUSONE) * (max+1-min);
+    if (min > max){
+        qSwap(min,max);
     }
+    return QRandomGenerator::global()->generate()%(max-min+1) + min;
 }
 
 qreal RandomGenerator::randomReal(qreal min, qreal max){
-    if(min > max){
-        return ((qreal)qrand() / (qreal)RANDMAX_PLUSONE) * (min-max);
-    }else{
-        return ((qreal)qrand() / (qreal)RANDMAX_PLUSONE) * (max-min);
+    if (min > max) {
+        qSwap(min, max);
     }
+    return QRandomGenerator::global()->generateDouble()*(max-min) + min;
 }
-
+/*
 qint32 RandomGenerator::randomNoRandMax(qint32 min, qint32 max){
     if(min < max){
-        return qrand()%(max-min+1) + min;
+        return QRandomGenerator::global()->generate()%(max-min+1) + min;
     }else{
-        return qrand()%(min-max+1) + max;
+        return QRandomGenerator::global()->generate()%(min-max+1) + max;
     }
 }
 
 void RandomGenerator::resetSeed(){
     qsrand(QTime::currentTime().msec());
 }
+*/

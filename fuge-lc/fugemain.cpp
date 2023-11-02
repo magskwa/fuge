@@ -37,8 +37,8 @@ FugeMain::FugeMain()
     : fSystemRules(0), fSystemVars(0)
 {
     // Initialise the random generator
-    QTime time;
-    qsrand(QDateTime::currentDateTime().toTime_t());
+    //QTime time;
+    //qsrand(QDateTime::currentDateTime().toTime_t());
 
     fuzzyLoaded = false;
     dataLoaded = false;
@@ -289,7 +289,7 @@ void FugeMain::onActPredictFuzzy(bool fromCmd)
         fileName = sysParams.getDatasetName();
     }
 
-    if (fileName != NULL) {
+    //if (fileName != NULL) {
         // Clear previous loaded data
         if (dataLoaded)
             listFile->clear();
@@ -340,7 +340,7 @@ void FugeMain::onActPredictFuzzy(bool fromCmd)
         for (int i = 0; i < reverseComputedResults.size(); i++) {
             predictedResults.replace(i, ComputeThread::bestFSystem->threshold(i / (reverseComputedResults.size()/nbOutVars), reverseComputedResults.at(i)));
         }
-    }
+    //}
 }
 
 
@@ -463,7 +463,8 @@ void FugeMain::onComputeFinished()
         logsDir.mkdir(sysParams.getSavePath()+"fuzzySystems");
     }
 
-    int randomNumber = qrand();
+    int randomNumber = QRandomGenerator::global()->generate();
+    //int randomNumber = qrand();
     newNameStream << sysParams.getSavePath() +"fuzzySystems/" << sysParams.getExperimentName() << "_" << time.currentTime().toString() << "." << randomNumber << "Gen" << sysParams.getMaxGenPop1()
     << "_" << "Pop" << stats.getSizePop1() << "_" << "Rules" << QString::number(sysParams.getNbRules()) << "_" << "Elt" << QString::number(sysParams.getEliteSizePop1())
     << "_" << "CX" << QString::number(sysParams.getCxProbPop1()) << "_" << "MutI" << sysParams.getMutFlipIndPop1() << "_" << "MutB" << sysParams.getMutFlipBitPop1()

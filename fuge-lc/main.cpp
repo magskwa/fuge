@@ -233,17 +233,23 @@ bool parseArguments(QStringList args)
   */
 int main(int argc, char *argv[])
 {
+/*
+    // prepare argument for the program
+    int nbArgument = 7;
+    char** arglist = new char*[nbArgument];
+    arglist[0] = "/Users/mer/Documents/fuge/build-FUGE-LC-Qt_macoOS_v4-Debug/FUGE-LC.app/Contents/MacOS/FUGE-LC";
+    arglist[1] = "-d";
+    arglist[2] = "/Users/mer/Documents/projet/dataset/arrhythmia_binary_small_sorted.csv";
+    arglist[3] = "-s";
+    arglist[4] = "/Users/mer/Documents/projet/dataset/test.fs";
+    arglist[5] = "-g";
+    arglist[6] = "no";
+
+    int argsize = 7;
+    QApplication a(argsize, arglist);
+*/
 
     QApplication a(argc, argv);
-
-    /*
-    qDebug() << "argc: " << argc;
-    for(int i=0; i<argc; i++){
-        qDebug() << "argv[" << i << "]: " << argv[i];
-    }
-    */
-
-
     if (parseArguments(a.arguments())) {
 
     //if(parseArguments(fakeCmdLine())){

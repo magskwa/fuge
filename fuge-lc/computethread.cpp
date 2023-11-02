@@ -181,8 +181,9 @@ void ComputeThread::loadConfiguration(POPULATION_CONFIG_TYPE &config, QString fi
 
         QString line;
         QStringList content;
-        while((line = in.readLine()) != NULL)
+        while(!in.atEnd())
         {
+            line = in.readLine();
             line = line.trimmed();
             line.replace(" ", "");
             content = line.split("=");

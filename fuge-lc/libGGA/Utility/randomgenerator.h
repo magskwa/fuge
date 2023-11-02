@@ -36,9 +36,10 @@
 #include <QMutexLocker>
 #include <QMutex>
 #include <QTime>
-#include <QLinkedList>
+#include <QList>
 #include <QThread>
 #include <memory>
+#include <QRandomGenerator>
 
 using namespace std;
 class RandomGenerator : public QThread
@@ -96,14 +97,14 @@ public:
       * @return random
       *     a random value.
       */
-    qint32 randomNoRandMax(qint32 min, qint32 max);
+    //qint32 randomNoRandMax(qint32 min, qint32 max);
 
     /**
       * Reset the seed.
       *
       * Reinitialize the current seed.
       */
-    void resetSeed();
+    //void resetSeed();
 
 protected:
     RandomGenerator();
@@ -113,7 +114,7 @@ private:
     static RandomGenerator* randomGenerator;
 
     static const qreal RANDMAX_PLUSONE;
-    static QMutex mutex;
+    //static QMutex mutex;
 };
 
 #endif // RANDOMGENERATOR_H

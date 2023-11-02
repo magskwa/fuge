@@ -490,7 +490,9 @@ void FuzzySystem::loadMembershipsGenome(FuzzyMembershipsGenome* membGen)
             posVector.append(position);
         }
         // Sort the vector
-        qSort(posVector);
+        //qSort(posVector);
+        std::sort(posVector.begin(), posVector.end());
+
         // Add the sets to the variable
         for (int l = 0; l < posVector.size(); l++) {
             inVarArray[i]->getSet(l)->setPosition(posVector.at(l)+valMin);
@@ -509,7 +511,9 @@ void FuzzySystem::loadMembershipsGenome(FuzzyMembershipsGenome* membGen)
             posVector.append(position);
         }
         // Sort the vector
-        qSort(posVector);
+        //qSort(posVector);
+        std::sort(posVector.begin(), posVector.end());
+
         // Add the sets to the variable
         for (int l = 0; l < posVector.size(); l++) {
             outVarArray[i]->getSet(l)->setPosition(posVector.at(l)+valMin);
