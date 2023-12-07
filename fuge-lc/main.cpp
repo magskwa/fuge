@@ -36,7 +36,6 @@ QString datasetFile;
 QString scriptFile;
 QString fuzzyFile;
 bool useGUI= true;
-bool runFromCmd = false;
 bool dataLoaded = false;
 bool scriptLoaded = false;
 bool fuzzyLoaded = false;
@@ -87,26 +86,6 @@ void invalidParam()
     showHelp();
 }
 
-QStringList fakeCmdLine()
-{
-    QStringList argList;
-
-    argList.append("/Users/mer/Documents/fuge/build-FUGE-LC-Qt_macoOS_v4-Debug/FUGE-LC.app/Contents/MacOS/FUGE-LC");
-    //argList.append("--evaluate");
-    argList.append("-d");
-    argList.append("/Users/mer/Documents/projet/dataset/arrhythmia_binary_small_sorted.csv");
-    argList.append("-s");
-    argList.append("/Users/mer/Documents/projet/dataset/test.fs");
-    //argList.append("-f");
-    //argList.append("/Users/mer/Desktop/script_result/fuzzySystems/");
-    argList.append("-g");
-    argList.append("no");
-
-    runFromCmd = true;
-
-    return argList;
-}
-
 /**
   * Parse the command line arguments.
   *
@@ -116,7 +95,6 @@ bool parseArguments(QStringList args)
 {
     // Look if we run directly from cmdline
     if (args.size() == 1) {
-        runFromCmd = false;
         return true;
     }
 
@@ -223,8 +201,6 @@ bool parseArguments(QStringList args)
             return false;
         }
     }
-
-    runFromCmd = true;
     return true;
 }
 
@@ -233,136 +209,29 @@ bool parseArguments(QStringList args)
   */
 int main(int argc, char *argv[])
 {
-/*
+    /*
     // prepare argument for the program
     int nbArgument = 7;
     char** arglist = new char*[nbArgument];
-    arglist[0] = "/Users/mer/Documents/fuge/build-FUGE-LC-Qt_macoOS_v4-Debug/FUGE-LC.app/Contents/MacOS/FUGE-LC";
+    arglist[0] = "/Users/mer/Documents/fuge/fuge-lc/cmake-build-debug/FUGE-LC.app/Contents/MacOS/FUGE-LC";
     arglist[1] = "-d";
-    arglist[2] = "/Users/mer/Documents/projet/dataset/arrhythmia_binary_small_sorted.csv";
+    arglist[2] = "/Users/mer/Documents/projet/dataset/arrhythmia_binary_sorted.csv";
     arglist[3] = "-s";
     arglist[4] = "/Users/mer/Documents/projet/dataset/test.fs";
     arglist[5] = "-g";
     arglist[6] = "no";
 
-    int argsize = 7;
-    QApplication a(argsize, arglist);
-*/
-
+    QApplication a(nbArgument, arglist);
+    */
     QApplication a(argc, argv);
     if (parseArguments(a.arguments())) {
 
-    //if(parseArguments(fakeCmdLine())){
-
         FugeMain w;
+        w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
 
-        // Run automatically from command line if needed
         if (!eval && !predict) {
-            w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
             return a.exec();
         }
-        else {
-            w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
-        }
-    }
-}
-
-
-/* methods idea for api */
-
-
-
-
-/*
- * Creation of fuzzy models
- *
- * @param datasetFile Path to the dataset file
- * @param scriptFile Path to the script file
- */
-void createFuzzyModel(QString datasetFile, QString scriptFile){
-
-    // prepare argument for the program
-    int nbArgument = 7;
-    char** arglist = new char*[nbArgument];
-    arglist[0] = "/Users/mer/Documents/fuge/build-FUGE-LC-Qt_macoOS_v4-Debug/FUGE-LC.app/Contents/MacOS/FUGE-LC";
-    arglist[1] = "-d";
-    arglist[2] = datasetFile.toLatin1().data();
-    arglist[3] = "-s";
-    arglist[4] = scriptFile.toLatin1().data();
-    arglist[5] = "-g";
-    arglist[6] = "no";
-
-    QApplication a(nbArgument, arglist);
-
-    if(parseArguments(a.arguments())){
-
-        FugeMain w;
-        w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
-        a.exec();
-    }
-}
-
-/*
- * Evaluation of fuzzy models
- *
- * @param datasetFile Path to the dataset file
- * @param scriptFile Path to the script file
- * @param fuzzyFile Path to the fuzzy file
- */
-void evaluateFuzzyModel(QString datasetFile, QString scriptFile, QString fuzzyFile){
-
-    // prepare argument for the program
-    int nbArgument = 10;
-    char** arglist = new char*[nbArgument];
-    arglist[0] = "/Users/mer/Documents/fuge/build-FUGE-LC-Qt_macoOS_v4-Debug/FUGE-LC.app/Contents/MacOS/FUGE-LC";
-    arglist[1] = "--evaluate";
-    arglist[2] = "-d";
-    arglist[3] = datasetFile.toLatin1().data();
-    arglist[4] = "-s";
-    arglist[5] = scriptFile.toLatin1().data();
-    arglist[6] = "-f";
-    arglist[7] = fuzzyFile.toLatin1().data();
-    arglist[8] = "-g";
-    arglist[9] = "no";
-
-    QApplication a(nbArgument, arglist);
-
-    if(parseArguments(a.arguments())){
-
-        FugeMain w;
-        w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
-    }
-}
-
-/*
- * Prediction of fuzzy models
- *
- * @param datasetFile Path to the dataset file
- * @param scriptFile Path to the script file
- * @param fuzzyFile Path to the fuzzy file
- */
-void predictFuzzyModel(QString datasetFile, QString scriptFile, QString fuzzyFile){
-
-    // prepare argument for the program
-    int nbArgument = 10;
-    char** arglist = new char*[nbArgument];
-    arglist[0] = "/Users/mer/Documents/fuge/build-FUGE-LC-Qt_macoOS_v4-Debug/FUGE-LC.app/Contents/MacOS/FUGE-LC";
-    arglist[1] = "--predict";
-    arglist[2] = "-d";
-    arglist[3] = datasetFile.toLatin1().data();
-    arglist[4] = "-s";
-    arglist[5] = scriptFile.toLatin1().data();
-    arglist[6] = "-f";
-    arglist[7] = fuzzyFile.toLatin1().data();
-    arglist[8] = "-g";
-    arglist[9] = "no";
-
-    QApplication a(nbArgument, arglist);
-
-    if(parseArguments(a.arguments())){
-
-        FugeMain w;
-        w.runFromCmdLine(datasetFile, scriptFile, fuzzyFile, eval, predict, verbose);
     }
 }
 

@@ -79,7 +79,7 @@ FuzzyMembershipsGenome::~FuzzyMembershipsGenome()
   *@param bitString Bitstring to be decoded.
   *@param stringSize Size of the Bitstring.
   */
-// TODO: Cette méthode est coûteuse, on pourrait ganer en attaquant directement
+// TODO: Cette méthode est coûteuse, on pourrait gagner en attaquant directement
 //       le bitstring lorsqu'on l'utilise. (mais ça reste plus propre)
 int FuzzyMembershipsGenome::readGenomeBitString(QBitArray *bitString, int stringSize)
 {
@@ -106,7 +106,7 @@ int FuzzyMembershipsGenome::readGenomeBitString(QBitArray *bitString, int string
         for (int k = 0; k < nbOutSets; k++) {
             for (int l = 0; l < outSetsPosCodeSize; l++) {
                 temp += bitString->at(outBitIndex + i*nbOutSets*outSetsPosCodeSize + k*outSetsPosCodeSize + l) << l;
-          }
+            }
             genomeArray[outGenomeIndex + i*nbOutSets + k] = temp;
             temp = 0;
         }

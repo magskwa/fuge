@@ -100,8 +100,8 @@ public slots:
 
 private slots:
     void onActRun();
-    void onActEvalFuzzy(bool doValid = false, bool fromCmd = false);
-    void onActPredictFuzzy(bool fromCmd = false);
+    void onActEvalFuzzy(bool doValid = false);
+    void onActPredictFuzzy();
 
 signals:
     void clearStats();

@@ -32,23 +32,14 @@
 
 #include "randomgenerator.h"
 #include <cstdlib>
-//QMutex RandomGenerator::mutex;
+
 RandomGenerator* RandomGenerator::randomGenerator = NULL;
-
-
-//auto_ptr<RandomGenerator::randomGenerator = QSharedPointer<RandomGenerator>(new MyObject);
-
-const qreal RandomGenerator::RANDMAX_PLUSONE = (qreal)RAND_MAX+1;
 
 RandomGenerator::RandomGenerator() :
     QThread()
-{
-    //resetSeed();
-}
+{}
 
 RandomGenerator *RandomGenerator::getGeneratorInstance(){
-    //Thread safety, automatically realeased at the end of the function.
-    //QMutexLocker locker(&RandomGenerator::mutex);
 
     if(randomGenerator == NULL)
         randomGenerator = new RandomGenerator();
@@ -69,16 +60,3 @@ qreal RandomGenerator::randomReal(qreal min, qreal max){
     }
     return QRandomGenerator::global()->generateDouble()*(max-min) + min;
 }
-/*
-qint32 RandomGenerator::randomNoRandMax(qint32 min, qint32 max){
-    if(min < max){
-        return QRandomGenerator::global()->generate()%(max-min+1) + min;
-    }else{
-        return QRandomGenerator::global()->generate()%(min-max+1) + max;
-    }
-}
-
-void RandomGenerator::resetSeed(){
-    qsrand(QTime::currentTime().msec());
-}
-*/

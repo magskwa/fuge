@@ -30,16 +30,11 @@
 
 QFile *fitLogFile;
 QSemaphore scriptSema(0);
-bool doRunFromCmd = false;
 QList<QStringList>* FugeMain::listFile = 0;
 
 FugeMain::FugeMain()
     : fSystemRules(0), fSystemVars(0)
 {
-    // Initialise the random generator
-    //QTime time;
-    //qsrand(QDateTime::currentDateTime().toTime_t());
-
     fuzzyLoaded = false;
     dataLoaded = false;
     scriptLoaded = false;
@@ -82,8 +77,6 @@ FugeMain::~FugeMain()
 void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzyFile,
                         bool eval, bool predict, bool verbose)
 {
-    doRunFromCmd = true;
-
     // First open the dataset
     QFile file(dataSet);
     file.open(QIODevice::ReadOnly);
@@ -119,7 +112,7 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
         sysParams.setDatasetName(dataSet);
 
         if (eval) {
-            this->onActEvalFuzzy(true, true);
+            this->onActEvalFuzzy(true);
             std::cout << "[Fitness] : " << ComputeThread::bestFSystem->getFitness() << std::endl;
             std::cout << "[Sensitivity] : " << ComputeThread::bestFSystem->getSensitivity() << std::endl;
             std::cout << "[Specificity] : " << ComputeThread::bestFSystem->getSpecificity() << std::endl;
@@ -135,7 +128,7 @@ void FugeMain::runFromCmdLine(QString dataSet, QString scriptFile, QString fuzzy
             std::cout << "[OverLearn] : " << ComputeThread::bestFSystem->getOverLearn() << std::endl;
         }
         else if (predict) {
-            this->onActPredictFuzzy(true);
+            this->onActPredictFuzzy();
         }
     }
     else {
@@ -278,76 +271,68 @@ void FugeMain::onActRun()
 /**
   * Slot called when the user asks for a prediction.
   */
-void FugeMain::onActPredictFuzzy(bool fromCmd)
+void FugeMain::onActPredictFuzzy()
 {
     SystemParameters& sysParams = SystemParameters::getInstance();
-    QString fileName;
+    QString fileName = sysParams.getDatasetName();
 
-    if (!fromCmd)
-        fileName = "blabla.ffs"; /* QFileDialog::getOpenFileName(this, tr("Open a test dataset (WITHOUT OUPTUT VALUES)"), "../../../../datasets", "*.csv");*/
+    if (dataLoaded)
+        listFile->clear();
+    QFile file(fileName);
+    file.open(QIODevice::ReadOnly);
+    QTextStream csvFile(&file);
+    QString line;
+    QStringList list;
+
+    // Read the csv file and store info in a double dimension list.
+    while (!csvFile.atEnd()) {
+        line = csvFile.readLine();
+        list = line.split(';');
+        listFile->append(list);
+    }
+    ComputeThread::bestFSystem->loadData(listFile);
+    dataLoaded = true;
+
+    file.close();
+
+    int nbOutVars = sysParams.getNbOutVars();
+
+    QVector<float> computedResults;
+    QVector<float> reverseComputedResults;
+    QVector<float> predictedResults;
+
+    computedResults = ComputeThread::bestFSystem->doEvaluateFitness();
+
+
+    // Reorder the results in order to simplify their display by EvalPlot
+    if(nbOutVars > 1) {
+        reverseComputedResults.resize(computedResults.size());
+        for (int i = 0; i <  nbOutVars; i++) {
+            for (int k = 0; k < listFile->size()-1; k++) {
+                reverseComputedResults.replace(i*(listFile->size()-1) + k, computedResults.at(k*nbOutVars+i));
+            }
+        }
+    }
     else {
-        fileName = sysParams.getDatasetName();
+        reverseComputedResults.resize(computedResults.size());
+        for (int k = 0; k < listFile->size()-1; k++) {
+            reverseComputedResults.replace(k, computedResults.at(k));
+        }
     }
 
-    //if (fileName != NULL) {
-        // Clear previous loaded data
-        if (dataLoaded)
-            listFile->clear();
-        QFile file(fileName);
-        file.open(QIODevice::ReadOnly);
-        QTextStream csvFile(&file);
-        QString line;
-        QStringList list;
-
-        // Read the csv file and store info in a double dimension list.
-        while (!csvFile.atEnd()) {
-            line = csvFile.readLine();
-            list = line.split(';');
-            listFile->append(list);
-        }
-        ComputeThread::bestFSystem->loadData(listFile);
-        dataLoaded = true;
-
-        file.close();
-
-        int nbOutVars = sysParams.getNbOutVars();
-
-        QVector<float> computedResults;
-        QVector<float> reverseComputedResults;
-        QVector<float> predictedResults;
-
-        computedResults = ComputeThread::bestFSystem->doEvaluateFitness();
-
-        // Reorder the results in order to simplify their display by EvalPlot
-        if(nbOutVars > 1) {
-            reverseComputedResults.resize(computedResults.size());
-            for (int i = 0; i <  nbOutVars; i++) {
-                for (int k = 0; k < listFile->size()-1; k++) {
-                    reverseComputedResults.replace(i*(listFile->size()-1) + k, computedResults.at(k*nbOutVars+i));
-                }
-            }
-        }
-        else {
-            reverseComputedResults.resize(computedResults.size());
-            for (int k = 0; k < listFile->size()-1; k++) {
-                reverseComputedResults.replace(k, computedResults.at(k));
-            }
-        }
-
-
-        predictedResults.resize(reverseComputedResults.size());
-        // Compute the predicted results by applying the threshold
-        for (int i = 0; i < reverseComputedResults.size(); i++) {
-            predictedResults.replace(i, ComputeThread::bestFSystem->threshold(i / (reverseComputedResults.size()/nbOutVars), reverseComputedResults.at(i)));
-        }
-    //}
+    predictedResults.resize(reverseComputedResults.size());
+    // Compute the predicted results by applying the threshold
+    for (int i = 0; i < reverseComputedResults.size(); i++) {
+        predictedResults.replace(i, ComputeThread::bestFSystem->threshold(i / (reverseComputedResults.size()/nbOutVars), reverseComputedResults.at(i)));
+    }
+    qDebug() << "Predicted results : " << predictedResults;
 }
 
 
 /**
   * Slot called when the user asks for an evalutation.
   */
-void FugeMain::onActEvalFuzzy(bool doValid, bool fromCmd)
+void FugeMain::onActEvalFuzzy(bool doValid)
 {
     QVector<float> computedResults;
     QVector<float> reverseComputedResults;

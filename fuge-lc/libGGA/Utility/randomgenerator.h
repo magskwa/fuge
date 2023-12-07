@@ -83,38 +83,11 @@ public:
       */
     qreal randomReal(qreal min, qreal max);
 
-
-    /**
-      * Get a random number.
-      *
-      * The return number is a number between min and max, without using RAND_MAX.
-      * Less precise but more compatible with low bit architectures(16bit/32bit).
-      *
-      * @param startValue
-      *     a starting value for the random.
-      * @param endValue
-      *     an ending value for the random.
-      * @return random
-      *     a random value.
-      */
-    //qint32 randomNoRandMax(qint32 min, qint32 max);
-
-    /**
-      * Reset the seed.
-      *
-      * Reinitialize the current seed.
-      */
-    //void resetSeed();
-
 protected:
     RandomGenerator();
 
 private:
-    //static auto_ptr<RandomGenerator> randomGenerator;
     static RandomGenerator* randomGenerator;
-
-    static const qreal RANDMAX_PLUSONE;
-    //static QMutex mutex;
 };
 
 #endif // RANDOMGENERATOR_H
