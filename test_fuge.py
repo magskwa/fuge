@@ -16,7 +16,7 @@ path_to_script_result = "/Users/mer/Desktop/script_result/"
 print("----- testing fuge 4")
 
 # Run the fuge app to create the fuzzy systems
-os.system(path_to_fuge_6 + " -d " + path_to_dataset_arr + " -s " + path_to_script_arr + " -g no" + '\n')
+os.system(path_to_fuge_6_cmake + " -d " + path_to_dataset_arr + " -s " + path_to_script_arr + " -g no" + '\n')
 
 # wait for the fuzzy systems to be created
 print("waiting for the fuzzy systems to be created...")
@@ -36,7 +36,7 @@ if not os.path.exists(path_to_script_result + "evaluation"):
 # Run the fuge app to evaluate the fuzzy systems
 for fuzzy_sys_name in fuzzy_sys_names:
     path_to_result = path_to_script_result + "evaluation/" + fuzzy_sys_name
-    os.system(path_to_fuge_6 + " --evaluate " + " -d " + path_to_dataset_arr + " -s " + path_to_script_arr + " -f " + path_to_fuzzy_systems + fuzzy_sys_name + " -g no > " + path_to_result + '\n')
+    os.system(path_to_fuge_6_cmake + " --evaluate " + " -d " + path_to_dataset_arr + " -s " + path_to_script_arr + " -f " + path_to_fuzzy_systems + fuzzy_sys_name + " -g no > " + path_to_result + '\n')
 
  
 # read the result from result file, find the fitness and print it

@@ -75,11 +75,14 @@ void EvolutionEngine::startEvolution(QMutex *access, QSemaphore *standby, quint3
         population->replace(selectedEntitiesCopy, evolvingEntitiesCopy);
 
         // Evaluate population
-        if(!evaluatePopulation(population, i))
-            break;
+        //if(!evaluatePopulation(population, i))
+            //break;
 
 
     }
+    if(!evaluatePopulation(population, 0))
+        return;
+
     qDebug() << population->getName() << " Before LAST join";
     // Join and leave
     waitOtherThread(access, standby);

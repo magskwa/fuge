@@ -6,10 +6,11 @@ import os
 
 
 # initialize the path variables f, d, s
-path_to_fuge_6 ="/Users/mer/Documents/fuge/build-FUGE-LC-Qt_6_5_3_for_macOS-Debug/FUGE-LC.app/Contents/MacOS/FUGE-LC"
+path_to_fuge_6 = "/Users/mer/Documents/fuge/fuge-lc/cmake-build-debug/FUGE-LC.app/Contents/MacOS/FUGE-LC"
 path_to_dataset_arr_pred = "/Users/mer/Documents/projet/dataset/arrhythmia_binary_sorted_pred.csv"
 path_to_script_arr = "/Users/mer/Documents/projet/dataset/test.fs"
 path_to_fuzzySystems = "/Users/mer/Desktop/script_result/fuzzySystems"
+path_to_dataset_arr = "/Users/mer/Documents/projet/dataset/arrhythmia_binary_sorted.csv"
 
 # go fetch the name of the fist fuzzy system
 fsys_name = "One.ffs"
