@@ -196,7 +196,7 @@ void CoEvolution::calcFitness(PopEntity *inX, PopEntity *inY)
 
     // FIXME: Fixed vars were never used on any test case provided, is it still necessary ? From : Yvan Da Silva.
     if (ComputeThread::sysParams->getFixedVars()) {
-        qDebug() << "FIXED";
+        //qDebug() << "FIXED";
         // Transcript each rule one by one
         for (int k = 0; k < ComputeThread::nbRules; k++) {
             // Variables d'entrée : le code des variables d'entrée est toujours 0

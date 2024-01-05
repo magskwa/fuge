@@ -274,7 +274,7 @@ FuzzyMemberships* FuzzyVariable::getMemberships()
   * defuzzification method choosed is COA, it represents the step (on x-axis)
   * of the discrete sum.
   */
-double FuzzyVariable::defuzz(int)
+double FuzzyVariable::defuzz(int /*precision*/)
 {
     if (output) {
 

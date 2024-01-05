@@ -13,7 +13,7 @@ path_to_dataset_can = "/Users/mer/Documents/projet/dataset/CancerDiag2_headers.c
 path_to_script_can = "/Users/mer/Documents/projet/dataset/CancerRef.fs"
 path_to_script_result = "/Users/mer/Desktop/script_result/"
 
-print("----- testing fuge 4")
+print("----- testing fuge")
 
 # Run the fuge app to create the fuzzy systems
 os.system(path_to_fuge_6_cmake + " -d " + path_to_dataset_arr + " -s " + path_to_script_arr + " -g no" + '\n')
@@ -27,8 +27,9 @@ path_to_fuzzy_systems = path_to_script_result + "fuzzySystems/"
 # read the names of the files in this directory and store them in a list
 fuzzy_sys_names = []
 for file in os.listdir(path_to_fuzzy_systems):
-    fuzzy_sys_names.append(file)
-    
+    if file.endswith(".ffs"):
+        fuzzy_sys_names.append(file)
+
 # if the evaluation folder doesn't exist, create it
 if not os.path.exists(path_to_script_result + "evaluation"):
     os.makedirs(path_to_script_result + "evaluation")
@@ -50,14 +51,14 @@ for fuzzy_sys_name in fuzzy_sys_names:
                 break
             
 # Delete the result file
-os.system("rm " + path_to_script_result + "evaluation/*")
+#os.system("rm " + path_to_script_result + "evaluation/*")
 
 # Delete the fuzzy system file
 #os.system("rm " + path_to_script_result + "fuzzySystems/*")
 
 # Delete the temporary files
-os.system("rm " + path_to_script_result + "temp/*")
-    
+#os.system("rm " + path_to_script_result + "temp/*")
+
 
 
     

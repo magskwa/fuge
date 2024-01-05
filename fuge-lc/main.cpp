@@ -211,15 +211,18 @@ int main(int argc, char *argv[])
 {
     /*
     // prepare argument for the program
-    int nbArgument = 7;
+    int nbArgument = 10;
     char** arglist = new char*[nbArgument];
-    arglist[0] = "/Users/mer/Documents/fuge/fuge-lc/cmake-build-debug/FUGE-LC.app/Contents/MacOS/FUGE-LC";
+    arglist[0] ="/Users/mer/Documents/fuge/fuge-lc/cmake-build-debug/FUGE-LC.app/Contents/MacOS/FUGE-LC";
     arglist[1] = "-d";
     arglist[2] = "/Users/mer/Documents/projet/dataset/arrhythmia_binary_sorted.csv";
     arglist[3] = "-s";
     arglist[4] = "/Users/mer/Documents/projet/dataset/test.fs";
     arglist[5] = "-g";
     arglist[6] = "no";
+    arglist[7] = "--evaluate";
+    arglist[8] = "-f";
+    arglist[9] = "/Users/mer/Desktop/script_result/fuzzySystems/one.ffs";
 
     QApplication a(nbArgument, arglist);
     */

@@ -36,7 +36,6 @@ class FuzzyOperatorAND : public FuzzyOperator
 public:
     FuzzyOperatorAND();
     virtual ~FuzzyOperatorAND();
-
     virtual double operate(double x, double y);
 };
 

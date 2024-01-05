@@ -40,7 +40,6 @@
 
 #include <iostream>
 #include <assert.h>
-
 #include "fuzzymembershipscoco.h"
 
 using std::cout; using std::endl;
@@ -165,3 +164,4 @@ int FuzzyMembershipsCoco::removeLastSet()
     setList->removeLast();
     return 0;
 }
+

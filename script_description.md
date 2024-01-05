@@ -15,15 +15,14 @@ then the number of variables are equal to nbMaxVarPerRule, and they are chosen i
 - **nbRules**: the number of rules in the fuzzy system. 
 - **nbMaxVarPerRule**: the maximum number of variables per rule.
 - **nbOutVars**: the number of output variables. (In case of multiple output variables, the fitness parameters are computed by averaging the fitness parameters of each output variable)
-- **nbInSets**: the number of input sets.
-- **nbOutSets**: the number of output sets.
+- **nbInSets**: the number of input sets per variable.
+- **nbOutSets**: the number of output sets per variable.
 - **inVarsCodeSize**: the number of bits used to code the input variables.
 - **outVarsCodeSize**: the number of bits used to code the output variables.
-- **inSetsCodeSize**: the number of bits used to code the input sets.
-- **outSetsCodeSize**: the number of bits used to code the output sets.
+- **inSetsCodeSize**: the number of bits used to code one input set's parameters
+- **outSetsCodeSize**: the number of bits used to code one output set's parameters
 - **inSetsPosCodeSize**: the number of bits used to code the position of the input sets.
 - **outSetPosCodeSize**: the number of bits used to code the position of the output sets.
-
 
 ## Co-evolution parameters
 
@@ -99,3 +98,73 @@ function doRun()
     }
 }
 ```
+
+# Chromosome structure
+## Rule chromosome
+#### Antecedents 
+The antecedents of the rule is represented as sequences of tuples, where each tuple consists of a variable number 
+and its corresponding set number. The length of the variable number is specified by the parameter inVarsCodeSize, 
+and the length of the set number is specified by the parameter inSetsCodeSize. With this information, it is possible 
+to extract and interpret the first part of the contents of the chromosome, as each tuple in the sequence contributes 
+to the rule's definition.
+
+#### Consequents
+The consequent of the rule is also represented as sequences of tuples, where each tuple consists of a output number 
+and its corresponding set number. The length of the output number is specified by the parameter outVarsCodeSize, and
+the length of the set number is specified by the parameter outSetsCodeSize. The consequent is located at the end of
+the chromosome. It starts at the end of the maxNbAntecedents * (inVarsCodeSize + inSetsCodeSize) bits.
+
+#### Full chromosome
+The full rule chromosome is composed of multiple rules, each rule being composed of the antecedents and the consequent.
+Here is an example of a chromosome with 2 rules, 2 antecedents per rule and 1 consequent per rule, with an 2 bits code for
+the input and output variables and 3 bits code for the input and output sets. 
+The chromosome is as follows: 011111101000010110011010100011.  The first 15 bits decribe the first rule : 011111101000010. 
+The first 5 bits (01111) are the first antecedent (var = 01, set = 111), the next 5 bits (11010) are the second 
+antecedent (var = 11, set = 010). The last 5 bits (00010) are the consequent (out = 00, set = 010). The same logic can be
+applied to the second rule (110011010100011).
+```
+   011111101000010110011010100011
+   | |  | |  | |  | |  | |  | | 
+   | |  | |  | |  | |  | |  | set3
+   | |  | |  | |  | |  | |  out0
+   | |  | |  | |  | |  | set5
+   | |  | |  | |  | |  var2
+   | |  | |  | |  | set1
+   | |  | |  | |  var3
+   | |  | |  | set2
+   | |  | |  out0
+   | |  | set2
+   | |  var3
+   | set7
+   var1
+   <------------->                  rule 1
+                  <------------->   rule 2
+```
+
+## Membership chromosome
+
+#### Fuzzy input and output set
+The membership chromosome is composed of multiple sets. Each fuzzy set contains a name, a number (for the identification),
+a position (which is the position of the peak of the set) and an evaluation (which is the value obtained for a given input).
+The shape of the set have always the same format :
+```
+______               ________ 
+      \   /\   /\   /          The first and the last sets are trapezoidal
+       \ /  \ /  \ /           and all internal sets have a triangular shape.
+        X    X    X
+       / \  / \  / \
+______/___\/___\/___\________
+```
+The number of bit for the position of the peak is coded with the parameter inSetsPosCodeSize. The number of the set per 
+variable is coded with the parameter nbInSets. The number of bits to encode the set number is coded with the parameter
+inSetsCodeSize. The evaluation of a set allows to compute the value of the membership function for a given input. 
+The aggregation method is the maximum of the evaluations of the sets. The defuzzification method is the center of gravity
+(COA) of the evaluations of the sets.
+In the chromosome, each set is defined by 
+
+
+#### Full chromosome
+The membership chromosome is composed of multiple fuzzy sets. Each input variable has a number of sets defined by the parameter
+nbInSets and each output variable has a number of sets defined by the parameter nbOutSets. The chromosome is composed of
+the input sets organized by variable followed by the output sets organized by variable as well. 
+

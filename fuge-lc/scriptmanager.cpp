@@ -299,7 +299,7 @@ void ScriptManager::readScript()
     QFile file(d_imp->fileName);
     if (! file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        QMessageBox::critical(0, "Error", "Could not open script file!");
+        //QMessageBox::critical(0, "Error", "Could not open script file!");
         qCritical() << "Script error : cannot find script file !";
         return;
     }
@@ -310,7 +310,7 @@ void ScriptManager::readScript()
     if( duk_peval_string( d_imp->engine, strProgram.constData() ) != DUK_EXEC_SUCCESS )
     {
         d_imp->scriptReady = false;
-        QMessageBox::critical(0, "Script error", duk_safe_to_string ( d_imp->engine , - 1 ) );
+        //QMessageBox::critical(0, "Script error", duk_safe_to_string ( d_imp->engine , - 1 ) );
         duk_pop( d_imp->engine );
         return;
     }
@@ -327,7 +327,7 @@ void ScriptManager::runScript()
 {
     if( !d_imp->scriptReady )
     {
-        QMessageBox::critical(0, "Error calling doRun", "The script has errors and cannot be run");
+        //QMessageBox::critical(0, "Error calling doRun", "The script has errors and cannot be run");
         return;
     }
     d_imp->doRun();

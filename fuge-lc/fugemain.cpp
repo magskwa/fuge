@@ -450,10 +450,13 @@ void FugeMain::onComputeFinished()
 
     int randomNumber = QRandomGenerator::global()->generate();
     //int randomNumber = qrand();
-    newNameStream << sysParams.getSavePath() +"fuzzySystems/" << sysParams.getExperimentName() << "_" << time.currentTime().toString() << "." << randomNumber << "Gen" << sysParams.getMaxGenPop1()
+    /*
+    newNameStream << sysParams.getSavePath() +"fuzzySystems/" << sysParams.getExperimentName()  << "_" << time.currentTime().toString()  << "." << randomNumber << "Gen" << sysParams.getMaxGenPop1()
     << "_" << "Pop" << stats.getSizePop1() << "_" << "Rules" << QString::number(sysParams.getNbRules()) << "_" << "Elt" << QString::number(sysParams.getEliteSizePop1())
     << "_" << "CX" << QString::number(sysParams.getCxProbPop1()) << "_" << "MutI" << sysParams.getMutFlipIndPop1() << "_" << "MutB" << sysParams.getMutFlipBitPop1()
     << "_" << "FixedV" << sysParams.getFixedVars() << "_" << "Fit" << stats.getFitMaxPop1() << ".ffs";
+    */
+    newNameStream << sysParams.getSavePath() +"fuzzySystems/" << sysParams.getExperimentName() << "_" << randomNumber << ".ffs";
     newNameStream.flush();
     file.copy(newName);
 
